@@ -10,14 +10,16 @@ export default async function Page() {
   return (
     <div>
       <HeadingAdmin title="لوحة التحكم" />
-      <div>
-        <h1 className="text-2xl font-bold mb-2">
-          أهلا بيك أ/ {user?.firstName} 🫡
-        </h1>
-        <p className="text-lg font-semibold mb-4">
-          انت الان تستطيع فعل ما تريده في منيو مطعم رايسه.
-        </p>
-        <div className="mb-8 flex gap-8 text-lg font-semibold">
+      <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-2xl font-bold">
+            أهلا بيك أ/ {user?.firstName} 🫡
+          </h1>
+          <p className="text-lg font-semibold">
+            انت الان تستطيع فعل ما تريده في منيو مطعم رايسه.
+          </p>
+        </div>
+        <div className="flex gap-8 text-lg font-semibold">
           <p className="px-3 py-2 rounded-md bg-orange-600 dark:bg-orange-700 text-white">
             <span className="text-xl font-bold">عدد الاكلات: </span>
             <span>{products.length} اكله</span>
