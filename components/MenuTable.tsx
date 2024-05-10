@@ -43,8 +43,8 @@ export function MenuTable({ products }: { products: IMenu[] }) {
                     : "https://res.cloudinary.com/dvtmqtcyl/image/upload/v1715305184/image-not-found_ieiasm.png"
                 }
                 alt="meal image"
-                width={64}
-                height={64}
+                width={50}
+                height={50}
                 className="rounded-full object-cover"
               />
             </TableCell>

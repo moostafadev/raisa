@@ -16,7 +16,7 @@ const Header = () => {
       <header className="fixed top-0 left-0 flex items-center justify-center h-16 w-full border-b shadow-sm border-neutral-500 dark:border-neutral-800 bg-[hsl(var(--background)/.8)] backdrop-blur-sm z-20">
         <div className="w-full px-4 flex items-center justify-between gap-2">
           <div className="flex items-center gap-8">
-            <Link href="/admin/" onClick={() => setDisplay(false)}>
+            <Link href="/" onClick={() => setDisplay(false)}>
               <Image
                 src={"/raisa.png"}
                 alt="raisa image"
