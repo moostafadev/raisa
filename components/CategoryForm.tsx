@@ -38,7 +38,7 @@ const CategoryForm = () => {
       title,
     });
     setIsLoading(false);
-    router.push("/admin/menu");
+    router.push("/admin/category");
   }
 
   return (

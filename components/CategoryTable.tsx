@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Table,
   TableBody,
@@ -11,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Category } from "@/interfaces";
 import Image from "next/image";
+import TableActions from "./TableActions";
 
 export function CategoryTable({ categories }: { categories: Category[] }) {
   const headStyle = "text-right font-bold text-lg";
@@ -21,6 +20,7 @@ export function CategoryTable({ categories }: { categories: Category[] }) {
         <TableRow>
           <TableHead className={headStyle}>الاسم</TableHead>
           <TableHead className={headStyle}>الاكلات</TableHead>
+          <TableHead className={headStyle}>التحكم</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -30,12 +30,15 @@ export function CategoryTable({ categories }: { categories: Category[] }) {
             <TableCell className={bodyStyle}>
               {item.products?.length} اكله
             </TableCell>
+            <TableCell className={bodyStyle}>
+              <TableActions type="category" id={item.id} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={1} className={headStyle}>
+          <TableCell colSpan={2} className={headStyle}>
             المجموع الاقسام
           </TableCell>
           <TableCell className={bodyStyle}>{categories.length}</TableCell>

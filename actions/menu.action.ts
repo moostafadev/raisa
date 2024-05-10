@@ -12,7 +12,7 @@ export const createProductAction = async ({
   price,
   kcal,
   size,
-  authorId,
+  categoryId,
   image,
 }: IMenu) => {
   await prisma.product.create({
@@ -25,7 +25,7 @@ export const createProductAction = async ({
       image,
       category: {
         connect: {
-          id: authorId as string,
+          id: categoryId as string,
         },
       },
     },
@@ -39,16 +39,35 @@ export const createCategoryAction = async ({ title }: { title: string }) => {
       title,
     },
   });
+  revalidatePath("/admin/category");
 };
 
-export const getAllProducts = async () => {
+export const getAllProductsAction = async () => {
   return prisma.product.findMany({
     include: { category: true },
   });
 };
 
-export const getAllCategories = async () => {
+export const getAllCategoriesAction = async () => {
   return prisma.category.findMany({
     include: { products: true },
   });
+};
+
+export const deleteProductAction = async ({ id }: { id: string }) => {
+  await prisma.product.delete({
+    where: {
+      id,
+    },
+  });
+  revalidatePath("/admin/menu");
+};
+
+export const deleteCategoryAction = async ({ id }: { id: string }) => {
+  await prisma.category.delete({
+    where: {
+      id,
+    },
+  });
+  revalidatePath("/admin/category");
 };

@@ -1,11 +1,14 @@
-import { getAllCategories, getAllProducts } from "@/actions/menu.action";
+import {
+  getAllCategoriesAction,
+  getAllProductsAction,
+} from "@/actions/menu.action";
 import HeadingAdmin from "@/components/AdminHeading";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Page() {
   const user = await currentUser();
-  const products = await getAllProducts();
-  const categories = await getAllCategories();
+  const products = await getAllProductsAction();
+  const categories = await getAllCategoriesAction();
 
   return (
     <div>

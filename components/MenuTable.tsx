@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Table,
   TableBody,
@@ -11,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { IMenu } from "@/interfaces";
 import Image from "next/image";
+import TableActions from "./TableActions";
 
 export function MenuTable({ products }: { products: IMenu[] }) {
   const headStyle = "text-right font-bold text-lg";
@@ -24,6 +23,7 @@ export function MenuTable({ products }: { products: IMenu[] }) {
           <TableHead className={headStyle}>القسم</TableHead>
           <TableHead className={headStyle}>السعرات</TableHead>
           <TableHead className={headStyle}>الصورة</TableHead>
+          <TableHead className={headStyle}>التحكم</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -48,12 +48,15 @@ export function MenuTable({ products }: { products: IMenu[] }) {
                 className="rounded-full object-cover"
               />
             </TableCell>
+            <TableCell className={bodyStyle}>
+              <TableActions type="product" id={item.id} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={4} className={headStyle}>
+          <TableCell colSpan={5} className={headStyle}>
             المجموع الاكلات
           </TableCell>
           <TableCell className={bodyStyle}>{products.length}</TableCell>

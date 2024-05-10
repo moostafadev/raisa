@@ -7,7 +7,7 @@ export interface IMenu {
   kcal?: number | null;
   image?: string | null;
   category?: Category;
-  authorId?: string;
+  categoryId?: string;
 }
 
 export interface Category {

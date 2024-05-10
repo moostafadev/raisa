@@ -77,7 +77,7 @@ const MenuForm = ({ categories }: { categories: Category[] }) => {
       body,
       kcal,
       size,
-      authorId: category,
+      categoryId: category,
       image: imageURL,
       id: "",
     });

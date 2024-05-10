@@ -15,8 +15,8 @@ model Product {
   size String?
   kcal Int?
   image String?
-  category Category @relation(fields: [authorId], references: [id])
-  authorId String @db.ObjectId
+  category  Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId String? @db.ObjectId
 }
 
 model Category {
