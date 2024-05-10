@@ -1,7 +1,16 @@
+import { getAllProducts } from "@/actions/menu.action";
+import HeadingAdmin from "@/components/AdminHeading";
+import { MenuTable } from "@/components/MenuTable";
 import React from "react";
 
-const page = () => {
-  return <div>page</div>;
+const page = async () => {
+  const products = await getAllProducts();
+  return (
+    <div>
+      <HeadingAdmin title="المنيو" />
+      <MenuTable products={products} />
+    </div>
+  );
 };
 
 export default page;

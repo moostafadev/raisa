@@ -3,9 +3,8 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-import { checkRole } from "@/utils/roles";
+import { arSA } from "@clerk/localizations";
+import { dark } from "@clerk/themes";
 
 const inter = Cairo({ subsets: ["latin"] });
 
@@ -25,7 +24,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      localization={arSA}
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <html lang="ar" dir="rtl">
         <body className={inter.className}>
           <ThemeProvider

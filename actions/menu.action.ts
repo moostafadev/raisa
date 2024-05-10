@@ -41,6 +41,12 @@ export const createCategoryAction = async ({ title }: { title: string }) => {
   });
 };
 
+export const getAllProducts = async () => {
+  return prisma.product.findMany({
+    include: { category: true },
+  });
+};
+
 export const getAllCategories = async () => {
   return prisma.category.findMany();
 };
