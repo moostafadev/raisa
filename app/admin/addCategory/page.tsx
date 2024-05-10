@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div>
       <HeadingAdmin title="أضافة قسم" />
-      <CategoryForm />
+      <CategoryForm pattern="add" />
     </div>
   );
 };

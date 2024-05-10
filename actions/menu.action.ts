@@ -6,6 +6,21 @@ import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 
+// Product actions
+export const getAllProductsAction = async () => {
+  return prisma.product.findMany({
+    include: { category: true },
+  });
+};
+
+export const getProductAction = async ({ id }: { id: string }) => {
+  return prisma.product.findUnique({
+    where: {
+      id,
+    },
+  });
+};
+
 export const createProductAction = async ({
   title,
   body,
@@ -33,21 +48,16 @@ export const createProductAction = async ({
   revalidatePath("/admin/menu");
 };
 
-export const createCategoryAction = async ({ title }: { title: string }) => {
-  await prisma.category.create({
-    data: {
-      title,
+export const deleteProductAction = async ({ id }: { id: string }) => {
+  await prisma.product.delete({
+    where: {
+      id,
     },
   });
-  revalidatePath("/admin/category");
+  revalidatePath("/admin/menu");
 };
 
-export const getAllProductsAction = async () => {
-  return prisma.product.findMany({
-    include: { category: true },
-  });
-};
-
+// Category actions
 export const getAllCategoriesAction = async () => {
   return prisma.category.findMany({
     include: { products: true },
@@ -60,6 +70,15 @@ export const getCategoryAction = async ({ id }: { id: string }) => {
       id,
     },
   });
+};
+
+export const createCategoryAction = async ({ title }: { title: string }) => {
+  await prisma.category.create({
+    data: {
+      title,
+    },
+  });
+  revalidatePath("/admin/category");
 };
 
 export const updateCategoryAction = async ({
@@ -77,15 +96,6 @@ export const updateCategoryAction = async ({
       title,
     },
   });
-};
-
-export const deleteProductAction = async ({ id }: { id: string }) => {
-  await prisma.product.delete({
-    where: {
-      id,
-    },
-  });
-  revalidatePath("/admin/menu");
 };
 
 export const deleteCategoryAction = async ({ id }: { id: string }) => {
