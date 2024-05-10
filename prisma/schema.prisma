@@ -12,15 +12,15 @@ model Product {
   title    String
   body     String?
   price Int
-  sizes String[]
+  size String?
   kcal Int?
   image String?
-  category Category[]
+  category Category @relation(fields: [authorId], references: [id])
+  authorId String @db.ObjectId
 }
 
 model Category {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String
-  products Product @relation(fields: [authorId], references: [id])
-  authorId String @db.ObjectId
+  products Product[]
 }
