@@ -48,5 +48,7 @@ export const getAllProducts = async () => {
 };
 
 export const getAllCategories = async () => {
-  return prisma.category.findMany();
+  return prisma.category.findMany({
+    include: { products: true },
+  });
 };

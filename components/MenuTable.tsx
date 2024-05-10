@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Category, IMenu } from "@/interfaces";
+import { IMenu } from "@/interfaces";
 import Image from "next/image";
 
 export function MenuTable({ products }: { products: IMenu[] }) {
@@ -54,7 +54,7 @@ export function MenuTable({ products }: { products: IMenu[] }) {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={4} className={headStyle}>
-            المجموع
+            المجموع الاكلات
           </TableCell>
           <TableCell className={bodyStyle}>{products.length}</TableCell>
         </TableRow>

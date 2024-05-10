@@ -6,7 +6,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { arSA } from "@clerk/localizations";
 import { dark } from "@clerk/themes";
 
-const inter = Cairo({ subsets: ["latin"] });
+const inter = Cairo({
+  subsets: ["arabic"],
+  weight: ["500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Raisa | Admin",

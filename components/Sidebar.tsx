@@ -1,6 +1,12 @@
 "use client";
 
-import { LineChart, Newspaper, Plus, Soup } from "lucide-react";
+import {
+  LineChart,
+  Newspaper,
+  Plus,
+  Soup,
+  TableProperties,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { Dispatch, SetStateAction } from "react";
@@ -46,6 +52,18 @@ const Sidebar = ({ Sidestate, setDisplay }: IProp) => {
           >
             <Newspaper />
             <span className="font-bold">المنيو</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={"/admin/category/"}
+            className={`${linkStyle} ${
+              pathname.startsWith("/admin/category") ? activeClassName : ""
+            }`}
+            onClick={() => setDisplay(false)}
+          >
+            <TableProperties />
+            <span className="font-bold">الاقسام</span>
           </Link>
         </li>
         <li>

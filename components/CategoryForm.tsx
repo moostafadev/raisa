@@ -53,7 +53,7 @@ const CategoryForm = () => {
               <FormControl>
                 <Input
                   className="text-base max-w-[600px]"
-                  placeholder="أسم الاكله"
+                  placeholder="أسم القسم"
                   {...field}
                 />
               </FormControl>
