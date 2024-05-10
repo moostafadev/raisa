@@ -25,7 +25,11 @@ const TableActions = ({
           <Eye size={20} />
         </Button>
       </Link>
-      <Link href={`/admin/`}>
+      <Link
+        href={`/admin/${
+          type === "product" ? `menu/edit/${id}` : `category/edit/${id}`
+        }`}
+      >
         <Button className="h-[30px] px-2 bg-sky-600 text-white hover:bg-sky-500">
           <Pen size={20} />
         </Button>

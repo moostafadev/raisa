@@ -54,6 +54,31 @@ export const getAllCategoriesAction = async () => {
   });
 };
 
+export const getCategoryAction = async ({ id }: { id: string }) => {
+  return prisma.category.findUnique({
+    where: {
+      id,
+    },
+  });
+};
+
+export const updateCategoryAction = async ({
+  id,
+  title,
+}: {
+  id: string;
+  title: string;
+}) => {
+  await prisma.category.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+    },
+  });
+};
+
 export const deleteProductAction = async ({ id }: { id: string }) => {
   await prisma.product.delete({
     where: {

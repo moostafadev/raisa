@@ -17,23 +17,34 @@ import { z } from "zod";
 import { CategorySchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import Spinner from "./Spinner";
-import { Plus } from "lucide-react";
+import { Pen, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { createCategoryAction } from "@/actions/menu.action";
+import {
+  createCategoryAction,
+  updateCategoryAction,
+} from "@/actions/menu.action";
 
-const CategoryForm = () => {
+interface IProp {
+  id?: string;
+  title?: string;
+  pattern: "add" | "edit";
+}
+
+const CategoryForm = ({ id, title, pattern }: IProp) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof CategorySchema>>({
     resolver: zodResolver(CategorySchema),
     defaultValues: {
-      title: "",
+      title,
     },
   });
 
   async function onSubmit({ title }: z.infer<typeof CategorySchema>) {
     setIsLoading(true);
+    if (pattern === "add") await createCategoryAction({ title });
+    if (pattern === "edit" && id) await updateCategoryAction({ title, id });
     await createCategoryAction({
       title,
     });
@@ -71,10 +82,15 @@ const CategoryForm = () => {
         >
           {isLoading ? (
             <Spinner />
-          ) : (
+          ) : pattern === "add" ? (
             <>
               <Plus size={20} />
               <span className="text-lg font-bold">اضافة</span>
+            </>
+          ) : (
+            <>
+              <Pen size={18} />
+              <span className="text-lg font-bold">تعديل</span>
             </>
           )}
         </Button>
