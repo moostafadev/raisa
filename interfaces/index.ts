@@ -6,8 +6,8 @@ export interface IMenu {
   size?: string | null;
   kcal?: number | null;
   image?: string | null;
-  category?: Category;
-  categoryId?: string;
+  category?: Category | null;
+  categoryId?: string | null;
 }
 
 export interface Category {
