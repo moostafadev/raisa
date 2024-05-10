@@ -26,7 +26,7 @@ const Sidebar = ({ Sidestate, setDisplay }: IProp) => {
       <ul className="py-4 pr-4">
         <li>
           <Link
-            href={"/admin"}
+            href={"/admin/"}
             className={`${linkStyle} ${
               pathname === "/admin" ? activeClassName : ""
             }`}
@@ -38,7 +38,7 @@ const Sidebar = ({ Sidestate, setDisplay }: IProp) => {
         </li>
         <li>
           <Link
-            href={"/admin/menu"}
+            href={"/admin/menu/"}
             className={`${linkStyle} ${
               pathname.startsWith("/admin/menu") ? activeClassName : ""
             }`}
@@ -50,9 +50,9 @@ const Sidebar = ({ Sidestate, setDisplay }: IProp) => {
         </li>
         <li>
           <Link
-            href={"/admin/add-meal"}
+            href={"/admin/addMeal/"}
             className={`${linkStyle} ${
-              pathname.startsWith("/admin/add-meal") ? activeClassName : ""
+              pathname.startsWith("/admin/addMeal") ? activeClassName : ""
             }`}
             onClick={() => setDisplay(false)}
           >
@@ -62,9 +62,9 @@ const Sidebar = ({ Sidestate, setDisplay }: IProp) => {
         </li>
         <li>
           <Link
-            href={"/admin/add-category"}
+            href={"/admin/addCategory/"}
             className={`${linkStyle} ${
-              pathname.startsWith("/admin/add-category") ? activeClassName : ""
+              pathname.startsWith("/admin/addCategory") ? activeClassName : ""
             }`}
             onClick={() => setDisplay(false)}
           >
