@@ -25,7 +25,7 @@ import {
   CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
 import Image from "next/image";
-import { Category } from "@/interfaces";
+import { Category, IMenu } from "@/interfaces";
 import {
   Select,
   SelectContent,
@@ -33,23 +33,52 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { createProductAction } from "@/actions/menu.action";
+import {
+  createProductAction,
+  updateProductAction,
+} from "@/actions/menu.action";
 
-const MenuForm = ({ categories }: { categories: Category[] }) => {
+interface IProp {
+  id?: string;
+  title?: string;
+  body?: string;
+  price?: number;
+  size?: string;
+  kcal?: number;
+  image?: string;
+  categoryId?: string;
+  categories: Category[];
+  pattern: "add" | "edit";
+}
+
+const MenuForm = ({
+  id,
+  title,
+  body,
+  price,
+  size,
+  kcal,
+  image,
+  categoryId,
+  categories,
+  pattern,
+}: IProp) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isImage, setIsImage] = useState(false);
-  const [imageURL, setImageURL] = useState<string | null | undefined>("");
+  const [isImage, setIsImage] = useState(image ? true : false);
+  const [imageURL, setImageURL] = useState<string | null | undefined>(image);
   const router = useRouter();
+
+  console.log(body);
 
   const form = useForm<z.infer<typeof MenuSchema>>({
     resolver: zodResolver(MenuSchema),
     defaultValues: {
-      title: "",
-      body: "",
-      price: 0,
-      size: "",
-      kcal: 0,
-      category: "",
+      title,
+      body,
+      price,
+      size,
+      kcal,
+      category: categoryId,
     },
   });
 
@@ -62,29 +91,35 @@ const MenuForm = ({ categories }: { categories: Category[] }) => {
     category,
   }: z.infer<typeof MenuSchema>) {
     setIsLoading(true);
-    console.log({
-      title,
-      body,
-      price,
-      size,
-      kcal,
-      category,
-    });
-    console.log(imageURL);
-    await createProductAction({
-      title,
-      price,
-      body,
-      kcal,
-      size,
-      categoryId: category,
-      image: imageURL,
-      id: "",
-    });
-    setImageURL("");
-    setIsImage(true);
+    if (pattern === "add") {
+      await createProductAction({
+        title,
+        price,
+        body,
+        kcal,
+        size,
+        categoryId: category,
+        image: imageURL,
+        id: "",
+      });
+    } else {
+      await updateProductAction({
+        id,
+        title,
+        body,
+        price,
+        size,
+        kcal,
+        image: imageURL,
+        categoryId: category,
+      });
+    }
     setIsLoading(false);
     router.push("/admin/menu");
+    setTimeout(() => {
+      setIsImage(true);
+      setImageURL("");
+    }, 1200);
   }
 
   return (
@@ -100,6 +135,7 @@ const MenuForm = ({ categories }: { categories: Category[] }) => {
                 <Input
                   className="text-base max-w-[600px]"
                   placeholder="أسم الاكله"
+                  defaultValue={field.value ?? ""}
                   {...field}
                 />
               </FormControl>

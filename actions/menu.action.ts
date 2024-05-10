@@ -48,6 +48,46 @@ export const createProductAction = async ({
   revalidatePath("/admin/menu");
 };
 
+export const updateProductAction = async ({
+  id,
+  title,
+  body,
+  price,
+  size,
+  kcal,
+  image,
+  categoryId,
+}: {
+  id?: string;
+  title?: string;
+  body?: string | null;
+  price?: number;
+  size?: string | null;
+  kcal?: number | null;
+  image?: string | null;
+  categoryId?: string;
+}) => {
+  await prisma.product.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      body,
+      price,
+      size,
+      kcal,
+      image,
+      category: {
+        connect: {
+          id: categoryId,
+        },
+      },
+    },
+  });
+  revalidatePath("/admin/menu");
+};
+
 export const deleteProductAction = async ({ id }: { id: string }) => {
   await prisma.product.delete({
     where: {
@@ -96,6 +136,7 @@ export const updateCategoryAction = async ({
       title,
     },
   });
+  revalidatePath("/admin/category");
 };
 
 export const deleteCategoryAction = async ({ id }: { id: string }) => {

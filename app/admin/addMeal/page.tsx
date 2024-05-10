@@ -8,7 +8,7 @@ const page = async () => {
   return (
     <div>
       <HeadingAdmin title="أضافة أكلة" />
-      <MenuForm categories={categories} />
+      <MenuForm pattern="add" categories={categories} />
     </div>
   );
 };
