@@ -11,7 +11,7 @@ const Hero = () => {
             alt="raisa image"
             width={1000}
             height={1000}
-            className="flex-1 max-w-[250px] sm:max-w-[300px] lg:max-w-[400px] xl:max-w-[100%]"
+            className="flex-1 max-w-[250px] sm:max-w-[300px] lg:max-w-[400px] xl:max-w-[100%] hover:scale-105 duration-300"
           />
           <div className="flex flex-col gap-6 xl:gap-8 flex-1 text-center">
             <h2 className="font-extrabold text-[#e58a25] text-3xl xl:text-4xl">
