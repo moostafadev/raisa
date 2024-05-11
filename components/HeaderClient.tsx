@@ -62,26 +62,38 @@ const HeaderClient = () => {
             ) : null}
           </ul>
         </div>
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-[2px] sm:gap-6">
           {user?.publicMetadata?.role === "admin" ? (
             <>
               <UserButton />
             </>
           ) : !user ? (
             <>
-              <Link href={"/admin"} className="hidden md:block">
+              <Link href={"/sign-in"} className="hidden md:block">
                 <Button
                   className={`p-[6px] sm:p-2 sm:text-base sm:font-bold`}
                   variant={"outline"}
                 >
-                  سجل كمسئول
+                  تسجيل دخول
                 </Button>
               </Link>
             </>
-          ) : null}
-          <Link href={"/cart"}>
-            <ShoppingBag />
-            <span>{cart.length}</span>
+          ) : (
+            <SignOutButton>
+              <Button
+                variant={"destructive"}
+                className="text-lg hidden md:flex items-center"
+              >
+                تسجيل خروج
+              </Button>
+            </SignOutButton>
+          )}
+
+          <Link href={"/cart"} className="relative">
+            <ShoppingBag size={30} />
+            <span className="absolute top-[-14px] right-[-8px] bg-red-500 bg-opacity-95 text-white rounded-full h-6 w-6 flex items-center justify-center text-sm font-semibold">
+              {cart.length}
+            </span>
           </Link>
           <ModeToggle />
           <Button
@@ -126,20 +138,20 @@ const HeaderClient = () => {
                   className={`p-[6px] sm:p-2 sm:text-base sm:font-bold`}
                   variant={"outline"}
                 >
-                  سجل كمسئول
+                  تسجيل دخول
                 </Button>
               </Link>
             </>
           ) : (
             <li>
-              <Link
-                href={"/admin"}
-                className="block p-4 text-xl font-bold hover:underline duration-300"
-              >
-                <Button variant={"destructive"} className="text-lg">
-                  <SignOutButton />
+              <SignOutButton>
+                <Button
+                  variant={"destructive"}
+                  className="text-lg flex items-center mx-auto"
+                >
+                  تسجيل خروج
                 </Button>
-              </Link>
+              </SignOutButton>
             </li>
           )}
         </ul>
