@@ -1,3 +1,5 @@
+"use client";
+
 import { IMenu } from "@/interfaces";
 import React from "react";
 import MealItem from "./MealItem";

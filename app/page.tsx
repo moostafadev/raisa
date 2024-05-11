@@ -6,6 +6,7 @@ import Menu from "@/components/Menu";
 
 export default async function Home() {
   const products = await getAllProductsAction();
+  // const cart = await
   return (
     <div>
       <HeaderClient />

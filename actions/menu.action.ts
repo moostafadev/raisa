@@ -147,3 +147,58 @@ export const deleteCategoryAction = async ({ id }: { id: string }) => {
   });
   revalidatePath("/admin/category");
 };
+
+// Delivery Service actions
+export const getDeliveryAction = async () => {
+  return await prisma.deliveryService.findMany();
+};
+
+export const getOneDeliveryAction = async ({ id }: { id: string }) => {
+  return await prisma.deliveryService.findMany({
+    where: {
+      id,
+    },
+  });
+};
+
+export const UpdateDeliveryAction = async ({
+  id,
+  available,
+  price,
+}: {
+  id: string;
+  available: "YES" | "NO";
+  price?: number | null;
+}) => {
+  await prisma.deliveryService.update({
+    where: {
+      id,
+    },
+    data: {
+      available,
+      price,
+    },
+  });
+  revalidatePath("/admin");
+};
+
+// Cart actions
+export const getCartsAction = async () => {
+  return await prisma.cart.findMany();
+};
+
+export const getOneCartAction = async ({ phone }: { phone: number }) => {
+  return await prisma.cart.findMany({
+    where: {
+      phone,
+    },
+  });
+};
+
+export const createCartAction = async ({ phone }: { phone: number }) => {
+  return await prisma.cart.findMany({
+    where: {
+      phone,
+    },
+  });
+};

@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, ShoppingBag, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { SignOutButton, UserButton, useUser } from "@clerk/nextjs";
 import { ModeToggle } from "./ToggoleMode";
 import Image from "next/image";
+import { CartContext } from "@/context/CartContext";
 
 interface INavData {
   name: string;
@@ -15,6 +16,7 @@ interface INavData {
 
 const HeaderClient = () => {
   const { user } = useUser();
+  const { cart, setCart } = useContext(CartContext);
   const [display, setDisplay] = useState<boolean>(false);
   const navData: INavData[] = [
     {
@@ -22,6 +24,8 @@ const HeaderClient = () => {
       link: "/menu",
     },
   ];
+
+  console.log(cart);
 
   return (
     <header className="relative flex items-center justify-center h-16 border-b shadow-sm border-neutral-500 dark:border-neutral-800 border-opacity-20">
@@ -47,10 +51,10 @@ const HeaderClient = () => {
               </li>
             ))}
             {user?.publicMetadata?.role === "admin" ? (
-              <li>
+              <li className="text-xl">
                 <Link
                   href={"/admin"}
-                  className="block px-2 font-bold hover:underline"
+                  className="block px-2 font-bold hover:underline text-red-600"
                 >
                   لوحة التحكم
                 </Link>
@@ -75,6 +79,10 @@ const HeaderClient = () => {
               </Link>
             </>
           ) : null}
+          <Link href={"/cart"}>
+            <ShoppingBag />
+            <span>{cart.length}</span>
+          </Link>
           <ModeToggle />
           <Button
             className={`md:hidden p-[6px] sm:p-2`}

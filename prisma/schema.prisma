@@ -7,6 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Product
 model Product {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String
@@ -19,8 +20,43 @@ model Product {
   categoryId String? @db.ObjectId
 }
 
+// Category
 model Category {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String
   products Product[]
+}
+
+// DeliveryService
+model DeliveryService {
+  id  String    @id @default(auto()) @map("_id") @db.ObjectId
+  available Type @default(NO)
+  price Int?
+}
+enum Type {
+  YES
+  NO
+}
+
+// Cart
+model Cart {
+  id String    @id @default(auto()) @map("_id") @db.ObjectId
+  productId String
+  qyt Int @default(1)
+  email String @unique
+  username String?
+  phone Int? @unique
+  address Address?
+  condition Boolean?
+}
+type Address {
+  city   City
+  state  String
+  street String
+  home String
+  house Int
+}
+enum City {
+  Riyad
+  Abha
 }

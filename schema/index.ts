@@ -22,3 +22,10 @@ export const CategorySchema = z.object({
 });
 
 export type CategoryValues = z.infer<typeof CategorySchema>;
+
+export const DeliverySchema = z.object({
+  available: z.enum(["NO", "YES"]),
+  price: z.number().optional().nullable(),
+});
+
+export type DeliveryValues = z.infer<typeof DeliverySchema>;

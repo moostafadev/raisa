@@ -45,9 +45,6 @@ const CategoryForm = ({ id, title, pattern }: IProp) => {
     setIsLoading(true);
     if (pattern === "add") await createCategoryAction({ title });
     if (pattern === "edit" && id) await updateCategoryAction({ title, id });
-    await createCategoryAction({
-      title,
-    });
     setIsLoading(false);
     router.push("/admin/category");
   }

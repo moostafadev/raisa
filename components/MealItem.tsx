@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "./ui/button";
 import { ShoppingBag } from "lucide-react";
 import { IMenu } from "@/interfaces";
+import { CartContext } from "@/context/CartContext";
 
 const MealItem = ({ item }: { item: IMenu }) => {
+  const { cart, setCart } = useContext(CartContext);
   return (
     <div className="flex flex-col gap-4 py-3 px-4 bg-[#ff9800] text-white rounded-md duration-300 hover:scale-105 hover:bg-[#e58a25]">
       <div className="flex flex-col gap-4">
@@ -38,7 +40,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
       </div>
       <Button
         className="w-full text-lg font-bold flex gap-2"
-        onClick={() => console.log(item)}
+        onClick={() => setCart([...cart, item.id])}
       >
         <ShoppingBag />
         <span>أضافه</span>
