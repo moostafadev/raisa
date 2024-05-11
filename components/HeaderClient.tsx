@@ -26,7 +26,7 @@ const HeaderClient = () => {
   return (
     <header className="relative flex items-center justify-center h-16 border-b shadow-sm border-neutral-500 dark:border-neutral-800 border-opacity-20">
       <div className="container flex items-center justify-between gap-2">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-16">
           <Link href="/" onClick={() => setDisplay(false)}>
             <Image
               src={"/raisa.png"}
@@ -37,7 +37,7 @@ const HeaderClient = () => {
           </Link>
           <ul className="hidden md:flex text-center">
             {navData.map((item: INavData, idx: number) => (
-              <li key={idx}>
+              <li key={idx} className="text-blue-800 dark:text-white text-xl">
                 <Link
                   href={{ pathname: item.link }}
                   className="block px-2 font-bold hover:underline"
@@ -65,9 +65,9 @@ const HeaderClient = () => {
             </>
           ) : !user ? (
             <>
-              <Link href={"/admin"}>
+              <Link href={"/admin"} className="hidden md:block">
                 <Button
-                  className={`md:hidden p-[6px] sm:p-2`}
+                  className={`p-[6px] sm:p-2 sm:text-base sm:font-bold`}
                   variant={"outline"}
                 >
                   سجل كمسئول
@@ -92,7 +92,7 @@ const HeaderClient = () => {
       >
         <ul className="w-full py-4 px-3 text-center">
           {navData.map((item: INavData, idx: number) => (
-            <li key={idx}>
+            <li key={idx} className="text-white text-xl">
               <Link
                 href={{ pathname: item.link }}
                 className="block p-4 text-xl font-bold hover:underline duration-300"
@@ -106,11 +106,22 @@ const HeaderClient = () => {
             <li>
               <Link
                 href={"/admin"}
-                className="block p-4 text-xl font-bold hover:underline duration-300"
+                className="block p-4 text-white text-xl font-bold hover:underline duration-300"
               >
                 لوحة التحكم
               </Link>
             </li>
+          ) : !user ? (
+            <>
+              <Link href={"/admin"}>
+                <Button
+                  className={`p-[6px] sm:p-2 sm:text-base sm:font-bold`}
+                  variant={"outline"}
+                >
+                  سجل كمسئول
+                </Button>
+              </Link>
+            </>
           ) : (
             <li>
               <Link

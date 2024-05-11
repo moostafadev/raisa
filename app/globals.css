@@ -74,3 +74,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+.hero-section {
+  background: rgb(41, 64, 103);
+  background: linear-gradient(
+    90deg,
+    rgba(41, 64, 103, 1) 0%,
+    rgba(21, 75, 154, 1) 25%,
+    rgba(21, 75, 154, 1) 50%,
+    rgba(21, 75, 154, 1) 75%,
+    rgba(41, 64, 103, 1) 100%
+  );
+}
+
+.dark .hero-section {
+  background: rgb(30, 46, 73);
+  background: linear-gradient(
+    90deg,
+    rgba(30, 46, 73, 1) 0%,
+    rgba(12, 42, 87, 1) 25%,
+    rgba(12, 42, 87, 1) 50%,
+    rgba(12, 42, 87, 1) 75%,
+    rgba(30, 46, 73, 1) 100%
+  );
+}
