@@ -1,11 +1,8 @@
 import { IMenu } from "@/interfaces";
 import React from "react";
 import MealItem from "./MealItem";
-import { currentUser } from "@clerk/nextjs/server";
 
 const Menu = async ({ products }: { products: IMenu[] }) => {
-  const user = await currentUser();
-
   return (
     <div className="container py-10">
       <div className="flex flex-col gap-8">

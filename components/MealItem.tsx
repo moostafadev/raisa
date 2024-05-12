@@ -125,7 +125,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
             </span>
           </p>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between flex-col gap-4 sm:flex-row sm:gap-0">
           <p className="flex items-center gap-[2px]">
             <Salad size={22} />
             <span className="flex gap-1">
