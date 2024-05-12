@@ -13,6 +13,10 @@ const Menu = async ({ products }: { products: IMenu[] }) => {
       })
     : null;
 
+  console.log(cartData);
+
+  console.log(user);
+
   const cart: Cart | undefined = cartData ? cartData[0] : undefined;
 
   return (

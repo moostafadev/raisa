@@ -28,13 +28,15 @@ const HeaderClient = () => {
 
   useEffect(() => {
     try {
-      getOneCartAction({
-        email: user?.emailAddresses[0].emailAddress as string,
-      }).then((res) => setCart(res));
+      if (user) {
+        getOneCartAction({
+          email: user?.emailAddresses[0].emailAddress as string,
+        }).then((res) => setCart(res));
+      }
     } catch (error) {
       console.log(error);
     }
-  }, [setCart, user?.emailAddresses]);
+  }, [setCart, user]);
 
   return (
     <header className="relative flex items-center justify-center h-16 border-b shadow-sm border-neutral-500 dark:border-neutral-800 border-opacity-20">
