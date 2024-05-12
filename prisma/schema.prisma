@@ -50,7 +50,7 @@ model Cart {
   condition Boolean?
 }
 type Address {
-  city   City
+  city   City?
   state  String
   street String
   home String

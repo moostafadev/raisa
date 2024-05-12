@@ -1,21 +1,87 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "./ui/button";
-import { ShoppingBag } from "lucide-react";
+import { Minus, Plus, ShoppingBag } from "lucide-react";
 import { IMenu } from "@/interfaces";
 import { CartContext } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { createCartAction, updateCartAction } from "@/actions/menu.action";
+import { Cart } from "@prisma/client";
 
-const MealItem = ({ item }: { item: IMenu }) => {
-  const { isSignedIn } = useUser();
+interface CartItem {
+  id: string;
+  productId: string;
+  qyt: number;
+  email: string;
+  username: string | null;
+  phone: number | null;
+  condition: boolean | null;
+  address: {
+    city: string;
+    state: string;
+    street: string;
+    home: string;
+    house: number;
+  } | null;
+}
+
+const MealItem = ({
+  item,
+  cartUser,
+}: {
+  item: IMenu;
+  cartUser: Cart | undefined;
+}) => {
+  const { isSignedIn, user } = useUser();
   const { cart, setCart } = useContext(CartContext);
+  const [quantity, setQuantity] = useState<number>(1);
   const router = useRouter();
+
+  const createCart = async () => {
+    if (user || isSignedIn) {
+      if (cartUser) {
+        const updatedCart = cart.map((cartItem) => {
+          if (cartItem.id === cartUser.id) {
+            return {
+              ...cartItem,
+              qyt: quantity,
+            };
+          }
+          return cartItem;
+        });
+        setCart(updatedCart);
+        await updateCartAction({
+          id: cartUser.id,
+          qyt: quantity,
+        });
+      } else {
+        const newK: Cart = {
+          id: "",
+          productId: item.id,
+          qyt: quantity,
+          email: user.emailAddresses[0].emailAddress,
+          username: null,
+          phone: null,
+          condition: null,
+          address: {
+            city: "",
+            home: "",
+            house: 0,
+            state: "",
+            street: "",
+          },
+        };
+        await createCartAction(newK);
+        setCart([...cart, newK]);
+      }
+    }
+  };
 
   const onClickHandle = () => {
     if (isSignedIn) {
-      setCart([...cart, item.id]);
+      createCart();
     } else {
       router.push("/sign-in");
     }
@@ -50,13 +116,26 @@ const MealItem = ({ item }: { item: IMenu }) => {
           </p>
         </div>
       </div>
-      <Button
-        className="w-full text-lg font-bold flex gap-2"
-        onClick={onClickHandle}
-      >
-        <ShoppingBag />
-        <span>أضافه</span>
-      </Button>
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between bg-white rounded-md">
+          <Button onClick={() => setQuantity((prev) => prev + 1)}>
+            <Plus />
+          </Button>
+          <span className="text-black text-lg font-bold">{quantity}</span>
+          <Button
+            onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
+          >
+            <Minus />
+          </Button>
+        </div>
+        <Button
+          className="w-full text-lg font-bold flex gap-2"
+          onClick={onClickHandle}
+        >
+          <ShoppingBag />
+          <span>أضافه</span>
+        </Button>
+      </div>
     </div>
   );
 };

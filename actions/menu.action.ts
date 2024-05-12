@@ -1,6 +1,6 @@
 "use server";
 
-import { IMenu } from "@/interfaces";
+import { City, IMenu } from "@/interfaces";
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
@@ -187,18 +187,63 @@ export const getCartsAction = async () => {
   return await prisma.cart.findMany();
 };
 
-export const getOneCartAction = async ({ phone }: { phone: number }) => {
+export const getOneCartAction = async ({ email }: { email: string }) => {
   return await prisma.cart.findMany({
     where: {
-      phone,
+      email,
     },
   });
 };
 
-export const createCartAction = async ({ phone }: { phone: number }) => {
-  return await prisma.cart.findMany({
+export const createCartAction = async ({
+  email,
+  productId,
+  qyt,
+}: {
+  productId: string;
+  qyt?: number;
+  email: string;
+}) => {
+  await prisma.cart.create({
+    data: {
+      email,
+      productId,
+      qyt,
+    },
+  });
+};
+
+export const updateCartAction = async ({
+  id,
+  qyt,
+  username,
+  phone,
+  address,
+  condition,
+}: {
+  id: string;
+  qyt?: number;
+  username?: string | null;
+  phone?: number | null;
+  condition?: boolean | null;
+  address?: {
+    city: City;
+    state: string;
+    street: string;
+    home: string;
+    house: number;
+  } | null;
+}) => {
+  await prisma.cart.update({
     where: {
+      id,
+    },
+    data: {
+      qyt,
+      username,
       phone,
+      condition,
+      address,
     },
   });
 };

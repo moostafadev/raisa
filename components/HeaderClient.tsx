@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { Button } from "./ui/button";
@@ -8,6 +8,7 @@ import { SignOutButton, UserButton, useUser } from "@clerk/nextjs";
 import { ModeToggle } from "./ToggoleMode";
 import Image from "next/image";
 import { CartContext } from "@/context/CartContext";
+import { getOneCartAction } from "@/actions/menu.action";
 
 interface INavData {
   name: string;
@@ -25,7 +26,15 @@ const HeaderClient = () => {
     },
   ];
 
-  console.log(cart);
+  useEffect(() => {
+    try {
+      getOneCartAction({
+        email: user?.emailAddresses[0].emailAddress as string,
+      }).then((res) => setCart(res));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [setCart, user?.emailAddresses]);
 
   return (
     <header className="relative flex items-center justify-center h-16 border-b shadow-sm border-neutral-500 dark:border-neutral-800 border-opacity-20">

@@ -1,10 +1,20 @@
-"use client";
-
 import { IMenu } from "@/interfaces";
 import React from "react";
 import MealItem from "./MealItem";
+import { currentUser } from "@clerk/nextjs/server";
+import { getOneCartAction } from "@/actions/menu.action";
+import { Cart } from "@prisma/client";
 
-const Menu = ({ products }: { products: IMenu[] }) => {
+const Menu = async ({ products }: { products: IMenu[] }) => {
+  const user = await currentUser();
+  const cartData = user
+    ? await getOneCartAction({
+        email: user.emailAddresses[0].emailAddress,
+      })
+    : null;
+
+  const cart: Cart | undefined = cartData ? cartData[0] : undefined;
+
   return (
     <div className="container py-10">
       <div className="flex flex-col gap-8">
@@ -13,7 +23,7 @@ const Menu = ({ products }: { products: IMenu[] }) => {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {products.map((item) => (
-            <MealItem item={item} key={item.id} />
+            <MealItem item={item} key={item.id} cartUser={cart} />
           ))}
         </div>
       </div>
