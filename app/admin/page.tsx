@@ -48,15 +48,15 @@ export default async function Page() {
                 <ShoppingBag />
                 <span className="flex gap-2">
                   <span className="text-lg sm:text-xl font-bold">التوصيل:</span>
-                  {deliveryService[0].available === "NO" ? (
+                  {deliveryService[0]?.available === "NO" ? (
                     <span>مجاناً</span>
                   ) : (
-                    <span>{deliveryService[0].price} ريال</span>
+                    <span>{deliveryService[0]?.price} ريال</span>
                   )}
                 </span>
               </p>
               <Link
-                href={`/admin/changeDelivary/${deliveryService[0].id}`}
+                href={`/admin/changeDelivary/${deliveryService[0]?.id}`}
                 className="px-3 py-2 rounded-md bg-blue-800 dark:bg-blue-900 text-white"
               >
                 <SquarePen />

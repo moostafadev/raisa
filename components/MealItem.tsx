@@ -1,43 +1,38 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Minus, Plus, ShoppingBag } from "lucide-react";
 import { IMenu } from "@/interfaces";
 import { CartContext } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { createCartAction, updateCartAction } from "@/actions/menu.action";
+import {
+  createCartAction,
+  getOneCartAction,
+  updateCartAction,
+} from "@/actions/menu.action";
 import { Cart } from "@prisma/client";
 
-interface CartItem {
-  id: string;
-  productId: string;
-  qyt: number;
-  email: string;
-  username: string | null;
-  phone: number | null;
-  condition: boolean | null;
-  address: {
-    city: string;
-    state: string;
-    street: string;
-    home: string;
-    house: number;
-  } | null;
-}
-
-const MealItem = ({
-  item,
-  cartUser,
-}: {
-  item: IMenu;
-  cartUser: Cart | undefined;
-}) => {
+const MealItem = ({ item }: { item: IMenu }) => {
   const { isSignedIn, user } = useUser();
   const { cart, setCart } = useContext(CartContext);
+  const [cartUser, setCartUser] = useState<Cart | null>(null);
+  const [tmp, setTmp] = useState(0);
   const [quantity, setQuantity] = useState<number>(1);
   const router = useRouter();
+
+  useEffect(() => {
+    try {
+      if (user) {
+        getOneCartAction({
+          email: user.emailAddresses[0].emailAddress,
+        }).then((res) => setCartUser(res[0]));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [setCartUser, user, tmp]);
 
   const createCart = async () => {
     if (user || isSignedIn) {
@@ -73,8 +68,13 @@ const MealItem = ({
             street: "",
           },
         };
-        await createCartAction(newK);
+        await createCartAction({
+          email: user.emailAddresses[0].emailAddress,
+          productId: item.id,
+          qyt: quantity,
+        });
         setCart([...cart, newK]);
+        setTmp((prev) => prev + 1);
       }
     }
   };

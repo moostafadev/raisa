@@ -68,8 +68,6 @@ const MenuForm = ({
   const [imageURL, setImageURL] = useState<string | null | undefined>(image);
   const router = useRouter();
 
-  console.log(body);
-
   const form = useForm<z.infer<typeof MenuSchema>>({
     resolver: zodResolver(MenuSchema),
     defaultValues: {

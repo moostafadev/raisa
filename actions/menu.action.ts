@@ -198,7 +198,7 @@ export const getOneCartAction = async ({ email }: { email: string }) => {
 export const createCartAction = async ({
   email,
   productId,
-  qyt,
+  qyt = 1,
 }: {
   productId: string;
   qyt?: number;

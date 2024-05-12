@@ -43,9 +43,9 @@ model Cart {
   id String    @id @default(auto()) @map("_id") @db.ObjectId
   productId String
   qyt Int @default(1)
-  email String @unique
+  email String
   username String?
-  phone Int? @unique
+  phone Int?
   address Address?
   condition Boolean?
 }
