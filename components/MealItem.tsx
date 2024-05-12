@@ -2,7 +2,16 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { Minus, Plus, ShoppingBag } from "lucide-react";
+import {
+  CircleDollarSign,
+  CookingPot,
+  Flame,
+  Minus,
+  Plus,
+  Salad,
+  ShoppingBag,
+  Utensils,
+} from "lucide-react";
 import { IMenu } from "@/interfaces";
 import { CartContext } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
@@ -90,29 +99,46 @@ const MealItem = ({ item }: { item: IMenu }) => {
     <div className="flex flex-col gap-4 py-3 px-4 bg-[#ff9800] text-white rounded-md duration-300 hover:scale-105 hover:bg-[#e58a25]">
       <div className="flex flex-col gap-4">
         <div className="flex justify-between">
-          <p className="flex gap-1">
-            <span className="text-base font-bold">الاسم:</span>
-            <span className="text-base font-semibold">{item.title}</span>
+          <p className="flex items-center gap-[2px]">
+            <Utensils size={22} />
+            <span className="flex gap-1">
+              <span className="text-base font-bold">الاسم:</span>
+              <span className="text-lg font-extrabold">{item.title}</span>
+            </span>
           </p>
-          <p className="flex gap-1">
-            <span className="text-base font-bold">السعر:</span>
-            <span className="text-base font-semibold">{item.price} ريال</span>
+          <p className="flex gap-[2px] items-center">
+            <CircleDollarSign size={22} />
+            <span className="flex gap-1">
+              <span className="text-base font-bold">السعر:</span>
+              <span className="text-lg font-extrabold text-blue-800">
+                {item.price} ريال
+              </span>
+            </span>
           </p>
         </div>
         <div>
-          <p className="flex gap-1">
-            <span className="text-base font-bold">مكونات:</span>
-            <span className="text-base font-semibold">{item.body}</span>
+          <p className="flex gap-[2px] items-center">
+            <CookingPot size={22} />
+            <span className="flex gap-1">
+              <span className="text-base font-bold">مكونات:</span>
+              <span className="text-base font-semibold">{item.body}</span>
+            </span>
           </p>
         </div>
         <div className="flex justify-between">
-          <p className="flex gap-1">
-            <span className="text-base font-bold">الحجم:</span>
-            <span className="font-semibold">{item.size}</span>
+          <p className="flex items-center gap-[2px]">
+            <Salad size={22} />
+            <span className="flex gap-1">
+              <span className="text-base font-bold">الحجم:</span>
+              <span className="font-semibold">{item.size}</span>
+            </span>
           </p>
-          <p className="flex gap-1">
-            <span className="text-base font-bold">السعرات:</span>
-            <span className="font-semibold">{item.kcal} كالوري</span>
+          <p className="flex items-center">
+            <Flame size={22} />
+            <span className="flex gap-1">
+              <span className="text-base font-bold">السعرات:</span>
+              <span className="font-semibold">{item.kcal} كالوري</span>
+            </span>
           </p>
         </div>
       </div>
