@@ -90,10 +90,11 @@ const HeaderClient = () => {
               </Link>
             </>
           ) : (
-            <SignOutButton>
+            <SignOutButton signOutOptions={{ redirectUrl: "/" }}>
               <Button
                 variant={"destructive"}
                 className="text-lg hidden md:flex items-center"
+                onClick={() => window.location.reload()}
               >
                 تسجيل خروج
               </Button>
@@ -155,10 +156,11 @@ const HeaderClient = () => {
             </>
           ) : (
             <li>
-              <SignOutButton>
+              <SignOutButton signOutOptions={{ redirectUrl: "/" }}>
                 <Button
                   variant={"destructive"}
                   className="text-lg flex items-center mx-auto"
+                  onClick={() => window.location.reload()}
                 >
                   تسجيل خروج
                 </Button>
