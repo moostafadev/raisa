@@ -66,7 +66,7 @@ const MealItem = ({
           phone: null,
           condition: null,
           address: {
-            city: "",
+            city: null,
             home: "",
             house: 0,
             state: "",
