@@ -213,6 +213,21 @@ export const createCartAction = async ({
   });
 };
 
+interface UpdateCartActionParams {
+  id: string;
+  qyt?: number;
+  username?: string | null;
+  phone?: number | null;
+  condition?: boolean | null;
+  address?: {
+    city?: City | null;
+    state: string;
+    street: string;
+    home: string;
+    house: number;
+  } | null;
+}
+
 export const updateCartAction = async ({
   id,
   qyt,
@@ -220,31 +235,17 @@ export const updateCartAction = async ({
   phone,
   address,
   condition,
-}: {
-  id: string;
-  qyt?: number;
-  username?: string | null;
-  phone?: number | null;
-  condition?: boolean | null;
-  address?: {
-    city: City;
-    state: string;
-    street: string;
-    home: string;
-    house: number;
-  } | null;
-}) => {
+}: UpdateCartActionParams) => {
+  const dataToUpdate: any = {};
+  if (qyt !== undefined) dataToUpdate.qyt = qyt;
+  if (username !== undefined) dataToUpdate.username = username;
+  if (phone !== undefined) dataToUpdate.phone = phone;
+  if (condition !== undefined) dataToUpdate.condition = condition;
+  if (address !== undefined) dataToUpdate.address = address;
+
   await prisma.cart.update({
-    where: {
-      id,
-    },
-    data: {
-      qyt,
-      username,
-      phone,
-      condition,
-      address,
-    },
+    where: { id },
+    data: dataToUpdate,
   });
   revalidatePath("/cart");
 };
