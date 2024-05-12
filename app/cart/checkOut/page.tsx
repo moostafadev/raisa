@@ -12,7 +12,6 @@ const page = async () => {
   const cart = await getOneCartAction({
     email: user?.emailAddresses[0].emailAddress as string,
   });
-  console.log(cart);
 
   return (
     <div className="container py-10">

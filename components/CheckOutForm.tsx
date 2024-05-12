@@ -110,7 +110,6 @@ const CheckOutForm = ({
         `;
       })}
     `;
-    console.log(result);
     setIsLoading(false);
   }
 
