@@ -26,7 +26,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { updateCartAction } from "@/actions/menu.action";
-import { City } from "@/interfaces";
+import { Cart, City, IMenu } from "@/interfaces";
 
 interface CheckOutSchema {
   username: string;
@@ -38,7 +38,15 @@ interface CheckOutSchema {
   house: number;
 }
 
-const CheckOutForm = ({ id }: { id: string[] }) => {
+const CheckOutForm = ({
+  id,
+  cart,
+  meals,
+}: {
+  id: string[];
+  cart: Cart[];
+  meals: IMenu[];
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -83,6 +91,26 @@ const CheckOutForm = ({ id }: { id: string[] }) => {
         console.log(error);
       }
     });
+    const result = `
+      الأسم: ${data.username}
+      الرقم: ${data.phone}
+      العنوان: ${data.city === "Riyad" ? "ألرياض" : "أبها"}, ${data.state}, ${
+      data.street
+    }, ${data.home}, ${data.house}
+      --- الطلبات ---
+      ${cart.map((item: Cart, idx) => {
+        return `
+          -- الطلب ${idx + 1} --
+          الصنف: ${meals.filter((meal) => meal.id === item.productId)[0].title}
+          الكمية: ${item.qyt}
+          الحجم: ${meals.filter((meal) => meal.id === item.productId)[0].title}
+          السعر: ${
+            meals.filter((meal) => meal.id === item.productId)[0].price
+          } ريال
+        `;
+      })}
+    `;
+    console.log(result);
     setIsLoading(false);
   }
 

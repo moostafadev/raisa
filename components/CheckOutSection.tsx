@@ -24,20 +24,25 @@ const CheckOutSection = ({ cart }: { cart: Cart[] }) => {
     return meals.filter((meal) => meal.id === item?.productId);
   };
 
+  const filteredMealsTo = () => {
+    const filteredMeals = cart.flatMap((item) => {
+      return meals.filter((meal) => meal.id === item.productId);
+    });
+    return filteredMeals;
+  };
+
   const idiesCart = () => {
     return cart.map((item) => item.id);
   };
 
   const sumPrices = () => {
     let sum = 0;
-
     cart.forEach((item) => {
       const meal = meals.find((meal) => meal.id === item.productId);
       if (meal) {
         sum += (meal.price || 0) * (item.qyt || 0);
       }
     });
-
     return sum;
   };
 
@@ -78,7 +83,11 @@ const CheckOutSection = ({ cart }: { cart: Cart[] }) => {
         <span>الثمن الكلي:</span>
         <span className="text-xl font-bold">{sumPrices()} ريال</span>
       </div>
-      <CheckOutForm id={idiesCart() as string[]} />
+      <CheckOutForm
+        id={idiesCart() as string[]}
+        cart={cart as Cart[]}
+        meals={filteredMealsTo() as IMenu[]}
+      />
     </div>
   );
 };
