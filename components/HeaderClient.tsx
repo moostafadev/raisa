@@ -75,9 +75,9 @@ const HeaderClient = () => {
         </div>
         <div className="flex items-center gap-[2px] sm:gap-6">
           {user?.publicMetadata?.role === "admin" ? (
-            <>
+            <div className="ml-2 flex items-center justify-center">
               <UserButton />
-            </>
+            </div>
           ) : !user ? (
             <>
               <Link href={"/sign-in"} className="hidden md:block">
@@ -94,7 +94,7 @@ const HeaderClient = () => {
               <Button
                 variant={"destructive"}
                 className="text-lg hidden md:flex items-center"
-                onClick={() => window.location.reload()}
+                onClick={() => window.location.replace("/")}
               >
                 تسجيل خروج
               </Button>
@@ -160,7 +160,7 @@ const HeaderClient = () => {
                 <Button
                   variant={"destructive"}
                   className="text-lg flex items-center mx-auto"
-                  onClick={() => window.location.reload()}
+                  onClick={() => window.location.replace("/")}
                 >
                   تسجيل خروج
                 </Button>

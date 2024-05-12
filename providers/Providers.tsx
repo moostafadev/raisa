@@ -9,6 +9,7 @@ import React, { ReactNode, useState } from "react";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<Cart[]>([]);
+
   return (
     <>
       <ClerkProvider

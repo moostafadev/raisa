@@ -246,4 +246,14 @@ export const updateCartAction = async ({
       address,
     },
   });
+  revalidatePath("/cart");
+};
+
+export const deleteCartAction = async ({ id }: { id: string }) => {
+  await prisma.cart.delete({
+    where: {
+      id,
+    },
+  });
+  revalidatePath("/cart");
 };

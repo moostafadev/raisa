@@ -22,6 +22,7 @@ import {
   updateCartAction,
 } from "@/actions/menu.action";
 import { Cart } from "@prisma/client";
+import Spinner from "./Spinner";
 
 const MealItem = ({ item }: { item: IMenu }) => {
   const { isSignedIn, user } = useUser();
@@ -29,6 +30,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
   const [cartUser, setCartUser] = useState<Cart | null>(null);
   const [tmp, setTmp] = useState(0);
   const [quantity, setQuantity] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -45,21 +47,49 @@ const MealItem = ({ item }: { item: IMenu }) => {
 
   const createCart = async () => {
     if (user || isSignedIn) {
+      setIsLoading(true);
       if (cartUser) {
-        const updatedCart = cart.map((cartItem) => {
-          if (cartItem.id === cartUser.id) {
-            return {
-              ...cartItem,
-              qyt: quantity,
-            };
-          }
-          return cartItem;
-        });
-        setCart(updatedCart);
-        await updateCartAction({
-          id: cartUser.id,
-          qyt: quantity,
-        });
+        if (cart.length > 2) {
+          const updatedCart = cart.map((cartItem) => {
+            if (cartItem.id === cartUser.id) {
+              return {
+                ...cartItem,
+                qyt: quantity,
+              };
+            }
+            return cartItem;
+          });
+          setCart(updatedCart);
+          await updateCartAction({
+            id: cartUser.id,
+            qyt: quantity,
+          });
+        } else {
+          console.log("doen");
+          const newK: Cart = {
+            id: "",
+            productId: item.id,
+            qyt: quantity,
+            email: user.emailAddresses[0].emailAddress,
+            username: null,
+            phone: null,
+            condition: null,
+            address: {
+              city: null,
+              home: "",
+              house: 0,
+              state: "",
+              street: "",
+            },
+          };
+          await createCartAction({
+            email: user.emailAddresses[0].emailAddress,
+            productId: item.id,
+            qyt: quantity,
+          });
+          setCart([...cart, newK]);
+          setTmp((prev) => prev + 1);
+        }
       } else {
         const newK: Cart = {
           id: "",
@@ -85,6 +115,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
         setCart([...cart, newK]);
         setTmp((prev) => prev + 1);
       }
+      setIsLoading(false);
     }
   };
 
@@ -158,8 +189,14 @@ const MealItem = ({ item }: { item: IMenu }) => {
           className="w-full text-lg font-bold flex gap-2"
           onClick={onClickHandle}
         >
-          <ShoppingBag />
-          <span>أضافه</span>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              <ShoppingBag />
+              <span>أضافه</span>
+            </>
+          )}
         </Button>
       </div>
     </div>
