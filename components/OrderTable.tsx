@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -23,6 +25,11 @@ export function OrderTable({
   const filteredMeals = ({ item }: { item: Cart }) => {
     return products.filter((meal) => meal?.id === item?.productId);
   };
+
+  const timeSecond = 60;
+  setTimeout(() => {
+    window.location.reload();
+  }, timeSecond * 1000);
 
   return (
     <Table>

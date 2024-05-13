@@ -4,11 +4,12 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Cart, IMenu } from "@/interfaces";
 import { deleteCartAction } from "@/actions/menu.action";
-import { CircleCheck, Trash } from "lucide-react";
+import { CircleCheck } from "lucide-react";
 import Spinner from "./Spinner";
 
 const OrderSection = ({ order, product }: { order: Cart; product: IMenu }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   return (
     <div className="flex flex-col gap-4 p-4 bg-zinc-100 rounded-md max-w-[800px]">
       <div className="flex flex-col gap-2 lg:justify-between lg:gap-1 lg:flex-row">
