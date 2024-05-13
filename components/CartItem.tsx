@@ -55,7 +55,7 @@ const CartItem = ({ item, meal }: { item: Cart; meal: IMenu }) => {
       >
         {isLoadingDelete ? <Spinner /> : <Trash />}
       </Button>
-      <div className="px-4 py-3 bg-zinc-100 rounded-md">
+      <div className="px-4 py-3 bg-zinc-100 dark:bg-zinc-900 rounded-md">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:gap-0 sm:justify-between">
             <p className="flex items-center gap-[2px]">

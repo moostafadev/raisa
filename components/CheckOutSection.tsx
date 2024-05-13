@@ -47,11 +47,11 @@ const CheckOutSection = ({ cart }: { cart: Cart[] }) => {
   };
 
   return (
-    <div className="flex flex-col p-4 bg-zinc-100 rounded-md gap-2">
+    <div className="flex flex-col p-4 bg-zinc-100 dark:bg-zinc-900 rounded-md gap-2">
       {cart.map((item) => (
         <div
           key={item.id}
-          className="flex flex-col p-4 bg-zinc-200 rounded-md gap-2"
+          className="flex flex-col p-4 bg-zinc-200 dark:bg-zinc-950 rounded-md gap-2"
         >
           <div className="flex justify-between">
             <p className="flex gap-2">
