@@ -132,7 +132,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
     <div className="flex flex-col gap-4 py-3 px-4 bg-[#ff9800] text-white rounded-md duration-300 hover:scale-105 hover:bg-[#e58a25]">
       <div className="flex flex-col gap-4">
         <div className="flex justify-between flex-col gap-4 sm:flex-row sm:gap-0">
-          <p className="flex items-center gap-[2px]">
+          <p className="flex gap-[2px]">
             <Utensils size={22} />
             <span className="flex gap-1">
               <span className="text-base font-bold">الاسم:</span>
@@ -152,7 +152,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
           </p>
         </div>
         <div>
-          <p className="flex gap-[2px] items-center">
+          <p className="flex gap-[2px]">
             <CookingPot size={22} />
             <span className="flex gap-1">
               <span className="text-base font-bold">مكونات:</span>

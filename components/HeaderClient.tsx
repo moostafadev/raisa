@@ -58,7 +58,7 @@ const HeaderClient = () => {
               height={60}
             />
           </Link>
-          <ul className="hidden md:flex text-center">
+          <ul className="hidden md:flex text-center items-center gap-2">
             {navData.map((item: INavData, idx: number) => (
               <li key={idx} className="text-blue-800 dark:text-white text-xl">
                 <Link
@@ -79,6 +79,13 @@ const HeaderClient = () => {
                 </Link>
               </li>
             ) : null}
+            <Link
+              href={"tel:0590888215"}
+              target="_blank"
+              className="py-2 px-4 rounded-md bg-blue-600 text-white font-bold mr-4"
+            >
+              أتصل بنا
+            </Link>
           </ul>
         </div>
         <div className="flex items-center gap-[2px] sm:gap-6">
@@ -175,6 +182,13 @@ const HeaderClient = () => {
               </SignOutButton>
             </li>
           )}
+          <Link
+            href={"tel:0590888215"}
+            target="_blank"
+            className="py-2 px-4 rounded-md bg-blue-600 text-white font-bold mt-4 block w-fit mx-auto"
+          >
+            أتصل بنا
+          </Link>
         </ul>
       </div>
     </header>

@@ -125,7 +125,7 @@ const CheckOutForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
-        <div className="flex flex-col md:flex-row md:gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <div className="w-full">
             <FormField
               control={form.control}
@@ -204,7 +204,7 @@ const CheckOutForm = ({
             </FormItem>
           )}
         />
-        <div className="flex flex-col md:flex-row md:gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <div className="w-full">
             <FormField
               control={form.control}
@@ -246,7 +246,7 @@ const CheckOutForm = ({
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row md:gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <div className="w-full">
             <FormField
               control={form.control}
@@ -296,31 +296,37 @@ const CheckOutForm = ({
 
         {isDone ? (
           <div className="flex flex-col gap-2">
-            <div className="flex gap-1 py-2 px-3 bg-blue-600 text-white rounded-md">
+            <div className="flex gap-1 py-2 px-3 bg-blue-600 text-white rounded-md w-fit">
               <span>
                 <Info />
               </span>
               {/* <p>تم أرسال طلبك بنجاح و سوف يصلك خلال 40 - 50 دقيقة.</p> */}
               <p>
-                تنبيه لكي يتم تأكيد علي طلبك يجب أرسال رسالة تحتوي علي رقم
-                الهاتف الذي تم تسجليه.
+                <span className="text-lg font-bold text-red-300">تنبيه</span>{" "}
+                لكي يتم تأكيد علي طلبك يجب أرسال رسالة تحتوي علي رقم الهاتف الذي
+                تم تسجليه.
               </p>
             </div>
-            <Link href={"https://api.whatsapp.com/send?phone=0556171648"}>
-              <Button
-                className="flex gap-1 items-center text-xl font-bold"
-                variant={"destructive"}
+            <div className="flex gap-2">
+              <Link
+                href={"https://api.whatsapp.com/send?phone=0556171648"}
+                target="_blank"
               >
-                <Send size={22} />
-                <span>هنا</span>
-              </Button>
-            </Link>
-            <Link href={"/"} target="_blank">
-              <Button className="flex gap-1 items-center">
-                <Home />
-                <span>الصفحة الرئيسيه</span>
-              </Button>
-            </Link>
+                <Button
+                  className="flex gap-1 items-center text-xl font-bold"
+                  variant={"destructive"}
+                >
+                  <Send size={22} />
+                  <span>هنا</span>
+                </Button>
+              </Link>
+              <Link href={"/"} target="_blank">
+                <Button className="flex gap-1 items-center text-lg font-bold">
+                  <Home />
+                  <span>الصفحة الرئيسيه</span>
+                </Button>
+              </Link>
+            </div>
           </div>
         ) : (
           <Button
