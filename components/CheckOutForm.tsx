@@ -110,6 +110,22 @@ const CheckOutForm = ({
         `;
       })}
     `;
+    try {
+      // توثيق
+      fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: cart[0].email,
+          userFirstname: cart[0].username,
+          result: result,
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
     setIsLoading(false);
   }
 
