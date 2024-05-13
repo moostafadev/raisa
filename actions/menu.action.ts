@@ -187,6 +187,14 @@ export const getCartsAction = async () => {
   return await prisma.cart.findMany();
 };
 
+export const getOneIdCartAction = async ({ id }: { id: string }) => {
+  return await prisma.cart.findMany({
+    where: {
+      id,
+    },
+  });
+};
+
 export const getOneCartAction = async ({ email }: { email: string }) => {
   return await prisma.cart.findMany({
     where: {
@@ -195,20 +203,50 @@ export const getOneCartAction = async ({ email }: { email: string }) => {
   });
 };
 
+export const getCartConditionAction = async ({
+  condition,
+  email,
+}: {
+  condition: boolean | null;
+  email: string;
+}) => {
+  return await prisma.cart.findMany({
+    where: {
+      condition,
+      email,
+    },
+  });
+};
+
+export const getAllCartConditionAction = async ({
+  condition,
+}: {
+  condition: boolean | null;
+}) => {
+  return await prisma.cart.findMany({
+    where: {
+      condition,
+    },
+  });
+};
+
 export const createCartAction = async ({
   email,
   productId,
   qyt = 1,
+  condition,
 }: {
   productId: string;
   qyt?: number;
   email: string;
+  condition?: boolean | null;
 }) => {
   await prisma.cart.create({
     data: {
       email,
       productId,
       qyt,
+      condition,
     },
   });
 };

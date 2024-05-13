@@ -8,7 +8,10 @@ import { SignOutButton, UserButton, useUser } from "@clerk/nextjs";
 import { ModeToggle } from "./ToggoleMode";
 import Image from "next/image";
 import { CartContext } from "@/context/CartContext";
-import { getOneCartAction } from "@/actions/menu.action";
+import {
+  getCartConditionAction,
+  getOneCartAction,
+} from "@/actions/menu.action";
 
 interface INavData {
   name: string;
@@ -24,13 +27,18 @@ const HeaderClient = () => {
       name: "المنيو",
       link: "/menu",
     },
+    {
+      name: "طلباتك",
+      link: "/order",
+    },
   ];
 
   useEffect(() => {
     try {
       if (user) {
-        getOneCartAction({
+        getCartConditionAction({
           email: user?.emailAddresses[0].emailAddress as string,
+          condition: false,
         }).then((res) => setCart(res));
       }
     } catch (error) {

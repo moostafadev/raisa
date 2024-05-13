@@ -6,6 +6,7 @@ import {
   Plus,
   Soup,
   TableProperties,
+  Truck,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -64,6 +65,18 @@ const Sidebar = ({ Sidestate, setDisplay }: IProp) => {
           >
             <TableProperties />
             <span className="font-bold">الاقسام</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            href={"/admin/orders/"}
+            className={`${linkStyle} ${
+              pathname.startsWith("/admin/orders") ? activeClassName : ""
+            }`}
+            onClick={() => setDisplay(false)}
+          >
+            <Truck />
+            <span className="font-bold">الطلبات</span>
           </Link>
         </li>
         <li>

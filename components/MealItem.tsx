@@ -73,7 +73,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
             email: user.emailAddresses[0].emailAddress,
             username: null,
             phone: null,
-            condition: null,
+            condition: false,
             address: {
               city: null,
               home: "",
@@ -86,6 +86,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
             email: user.emailAddresses[0].emailAddress,
             productId: item.id,
             qyt: quantity,
+            condition: false,
           });
           setCart([...cart, newK]);
           setTmp((prev) => prev + 1);
@@ -98,7 +99,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
           email: user.emailAddresses[0].emailAddress,
           username: null,
           phone: null,
-          condition: null,
+          condition: false,
           address: {
             city: null,
             home: "",
@@ -111,6 +112,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
           email: user.emailAddresses[0].emailAddress,
           productId: item.id,
           qyt: quantity,
+          condition: newK.condition,
         });
         setCart([...cart, newK]);
         setTmp((prev) => prev + 1);

@@ -28,8 +28,6 @@ const CheckOutSection = ({ cart }: { cart: Cart[] }) => {
     }
   }, [cart]);
 
-  console.log(delivery);
-
   const filteredMeals = ({ item }: { item: Cart }) => {
     return meals.filter((meal) => meal.id === item?.productId);
   };

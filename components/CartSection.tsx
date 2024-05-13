@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 
 const CartSection = () => {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
   const [meals, setMeals] = useState<IMenu[]>([]);
 
   useEffect(() => {

@@ -93,17 +93,6 @@ const CheckOutForm = ({
           });
         })
       );
-      try {
-        await Promise.all(
-          id.map(async (i) => {
-            await deleteCartAction({
-              id: i,
-            });
-          })
-        );
-      } catch (error) {
-        console.log(error);
-      }
     } catch (error) {
       console.log(error);
     } finally {
