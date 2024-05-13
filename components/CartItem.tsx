@@ -136,13 +136,13 @@ const CartItem = ({ item, meal }: { item: Cart; meal: IMenu }) => {
               </span>
             </p>
             <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between bg-white rounded-md">
+              <div className="flex items-center justify-between bg-white dark:bg-black rounded-md">
                 <Button
                   onClick={() => setQuantity((prev) => (prev as number) + 1)}
                 >
                   <Plus />
                 </Button>
-                <span className="text-black text-lg font-bold block px-4">
+                <span className="text-black dark:text-white text-lg font-bold block px-4">
                   {quantity}
                 </span>
                 <Button

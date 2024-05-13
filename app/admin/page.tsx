@@ -59,7 +59,7 @@ export default async function Page() {
                 href={`/admin/changeDelivary/${deliveryService[0]?.id}`}
                 className="px-3 py-2 rounded-md bg-blue-800 dark:bg-blue-900 text-white"
               >
-                <SquarePen />
+                <SquarePen size={28} />
               </Link>
             </div>
           </div>

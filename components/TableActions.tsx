@@ -20,11 +20,6 @@ const TableActions = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   return (
     <div className="flex gap-1 items-center">
-      <Link href={`/admin/`}>
-        <Button className="h-[30px] px-2 bg-teal-600 text-white hover:bg-teal-500">
-          <Eye size={20} />
-        </Button>
-      </Link>
       <Link
         href={`/admin/${
           type === "product" ? `menu/edit/${id}` : `category/edit/${id}`

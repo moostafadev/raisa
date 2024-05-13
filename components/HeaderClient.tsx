@@ -120,7 +120,7 @@ const HeaderClient = () => {
       <div
         className={`md:hidden flex justify-center absolute top-16 ${
           display ? "left-0" : "left-[100%]"
-        } w-full h-[calc(100vh-64px)] backdrop-blur-sm duration-300 overflow-hidden`}
+        } w-full h-[calc(100vh-64px)] backdrop-blur-sm duration-300 overflow-hidden z-10`}
       >
         <ul className="w-full py-4 px-3 text-center">
           {navData.map((item: INavData, idx: number) => (

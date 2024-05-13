@@ -129,12 +129,14 @@ const MealItem = ({ item }: { item: IMenu }) => {
   return (
     <div className="flex flex-col gap-4 py-3 px-4 bg-[#ff9800] text-white rounded-md duration-300 hover:scale-105 hover:bg-[#e58a25]">
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between">
+        <div className="flex justify-between flex-col gap-4 sm:flex-row sm:gap-0">
           <p className="flex items-center gap-[2px]">
             <Utensils size={22} />
             <span className="flex gap-1">
               <span className="text-base font-bold">الاسم:</span>
-              <span className="text-lg font-extrabold">{item.title}</span>
+              <span className="text-base lg:text-lg font-extrabold">
+                {item.title}
+              </span>
             </span>
           </p>
           <p className="flex gap-[2px] items-center">
@@ -174,11 +176,13 @@ const MealItem = ({ item }: { item: IMenu }) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between bg-white rounded-md">
+        <div className="flex items-center justify-between bg-white dark:bg-black rounded-md">
           <Button onClick={() => setQuantity((prev) => prev + 1)}>
             <Plus />
           </Button>
-          <span className="text-black text-lg font-bold">{quantity}</span>
+          <span className="text-black dark:text-white  text-lg font-bold">
+            {quantity}
+          </span>
           <Button
             onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : 1))}
           >

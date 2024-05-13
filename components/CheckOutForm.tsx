@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Form,
   FormControl,
@@ -16,7 +16,7 @@ import { z } from "zod";
 import { CheckOutSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import Spinner from "./Spinner";
-import { Info, MessageCircle } from "lucide-react";
+import { CircleCheck, Home, Info, MessageCircle } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -24,8 +24,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { updateCartAction } from "@/actions/menu.action";
+import { deleteCartAction, updateCartAction } from "@/actions/menu.action";
 import { Cart, City, IMenu } from "@/interfaces";
+import { CartContext } from "@/context/CartContext";
+import Link from "next/link";
 
 interface CheckOutSchema {
   username: string;
@@ -47,6 +49,8 @@ const CheckOutForm = ({
   meals: IMenu[];
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+  const { setCart } = useContext(CartContext);
 
   const form = useForm<z.infer<typeof CheckOutSchema>>({
     resolver: zodResolver(CheckOutSchema),
@@ -77,23 +81,37 @@ const CheckOutForm = ({
           await updateCartAction({
             id: i,
             username: data.username,
-            phone: data.phone,
+            phone: +data.phone,
+            condition: true,
             address: {
               city: data.city as City,
               state: data.state,
               street: data.street,
               home: data.home,
-              house: data.house,
+              house: +data.house,
             },
           });
         })
       );
+      try {
+        await Promise.all(
+          id.map(async (i) => {
+            await deleteCartAction({
+              id: i,
+            });
+          })
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
+      setCart([]);
+      setIsDone(true);
     }
-    setIsLoading(false);
+
     // const result = `
     //   الأسم: ${data.username}
     //   الرقم: ${data.phone}
@@ -118,47 +136,55 @@ const CheckOutForm = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xl font-bold">الأسم</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-base max-w-[300px]"
-                  placeholder="الأسم"
-                  defaultValue={field.value ?? ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xl font-bold">رقم الهاتف</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-base max-w-[300px]"
-                  placeholder="0556171648"
-                  value={field.value ?? ""}
-                  onChange={(e) => {
-                    const value = parseInt(e.target.value);
-                    field.onChange(value);
-                  }}
-                  onBlur={field.onBlur}
-                  type="number"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-col md:flex-row md:gap-4">
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xl font-bold">الأسم</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-base"
+                      placeholder="الأسم"
+                      defaultValue={field.value ?? ""}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xl font-bold">
+                    رقم الهاتف
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-base"
+                      placeholder="556171648"
+                      value={field.value === 0 ? "" : field.value}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        field.onChange(value);
+                      }}
+                      onBlur={field.onBlur}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
         <FormField
           control={form.control}
           name="city"
@@ -179,9 +205,9 @@ const CheckOutForm = ({
                   <SelectItem value="Abha">أبها</SelectItem>
                 </SelectContent>
               </Select>
-              <div className="flex gap-2 items-center text-red-600 hover:-translate-x-1 duration-300 mt-1">
+              <div className="flex gap-2 items-center text-orange-600 hover:-translate-x-1 duration-300 mt-1">
                 <Info />
-                <p className="text-base font-semibold">
+                <p className="text-sm sm:text-base font-semibold">
                   يوجد خدمة التوصيل فقط في مدينتي (ألرياض) (أبها).
                 </p>
               </div>
@@ -189,98 +215,127 @@ const CheckOutForm = ({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="state"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xl font-bold">الحي</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-base max-w-[300px]"
-                  placeholder="الحي"
-                  defaultValue={field.value ?? ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="street"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xl font-bold">الشارع</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-base max-w-[300px]"
-                  placeholder="الشارع"
-                  defaultValue={field.value ?? ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="home"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xl font-bold">العمارة</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-base max-w-[300px]"
-                  placeholder="العمارة"
-                  defaultValue={field.value ?? ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="house"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-xl font-bold">المنزل</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-base max-w-[300px]"
-                  placeholder="المنزل"
-                  value={typeof field.value === "number" ? field.value : ""}
-                  onChange={(e) => {
-                    const value = parseInt(e.target.value);
-                    field.onChange(value);
-                  }}
-                  onBlur={field.onBlur}
-                  type="number"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-col md:flex-row md:gap-4">
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xl font-bold">الحي</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-base"
+                      placeholder="الحي"
+                      defaultValue={field.value ?? ""}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="street"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xl font-bold">الشارع</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-base"
+                      placeholder="الشارع"
+                      defaultValue={field.value ?? ""}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row md:gap-4">
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="home"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xl font-bold">العمارة</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-base"
+                      placeholder="العمارة"
+                      defaultValue={field.value ?? ""}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="house"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xl font-bold">المنزل</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-base"
+                      placeholder="المنزل"
+                      value={field.value === 0 ? "" : field.value}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        field.onChange(value);
+                      }}
+                      onBlur={field.onBlur}
+                      type="number"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
 
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="flex items-center gap-2"
-        >
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <>
-              <MessageCircle size={20} />
-              <span className="text-lg font-bold">أرسال</span>
-            </>
-          )}
-        </Button>
+        {isDone ? (
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-1 py-2 px-3 bg-blue-600 text-white rounded-md">
+              <span>
+                <CircleCheck />
+              </span>
+              <p>تم أرسال طلبك بنجاح و سوف يصلك خلال 40 - 50 دقيقة.</p>
+            </div>
+            <Link href={"/"}>
+              <Button className="flex gap-1 items-center">
+                <Home />
+                <span>الصفحة الرئيسيه</span>
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <Button
+            type="submit"
+            disabled={isLoading || isDone}
+            className="flex items-center gap-2"
+          >
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <>
+                <MessageCircle size={20} />
+                <span className="text-lg font-bold">أرسال</span>
+              </>
+            )}
+          </Button>
+        )}
 
         {/* <div className="flex gap-2 items-center text-red-600 hover:-translate-x-1 duration-300">
           <Info size={28} />
