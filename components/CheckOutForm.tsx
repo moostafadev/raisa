@@ -17,7 +17,6 @@ import { CheckOutSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import Spinner from "./Spinner";
 import { Info, MessageCircle } from "lucide-react";
-import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -48,7 +47,6 @@ const CheckOutForm = ({
   meals: IMenu[];
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const form = useForm<z.infer<typeof CheckOutSchema>>({
     resolver: zodResolver(CheckOutSchema),
@@ -73,60 +71,48 @@ const CheckOutForm = ({
     house: number;
   }) {
     setIsLoading(true);
-    id.map((i) => {
-      try {
-        updateCartAction({
-          id: i,
-          username: data.username,
-          phone: data.phone,
-          address: {
-            city: data.city as City,
-            state: data.state,
-            street: data.street,
-            home: data.home,
-            house: data.house,
-          },
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    });
-    const result = `
-      الأسم: ${data.username}
-      الرقم: ${data.phone}
-      العنوان: ${data.city === "Riyad" ? "ألرياض" : "أبها"}, ${data.state}, ${
-      data.street
-    }, ${data.home}, ${data.house}
-      --- الطلبات ---
-      ${cart.map((item: Cart, idx) => {
-        return `
-          -- الطلب ${idx + 1} --
-          الصنف: ${meals.filter((meal) => meal.id === item.productId)[0].title}
-          الكمية: ${item.qyt}
-          الحجم: ${meals.filter((meal) => meal.id === item.productId)[0].title}
-          السعر: ${
-            meals.filter((meal) => meal.id === item.productId)[0].price
-          } ريال
-        `;
-      })}
-    `;
     try {
-      // توثيق
-      fetch("/api/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: cart[0].email,
-          userFirstname: cart[0].username,
-          result: result,
-        }),
-      });
+      await Promise.all(
+        id.map(async (i) => {
+          await updateCartAction({
+            id: i,
+            username: data.username,
+            phone: data.phone,
+            address: {
+              city: data.city as City,
+              state: data.state,
+              street: data.street,
+              home: data.home,
+              house: data.house,
+            },
+          });
+        })
+      );
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
     setIsLoading(false);
+    // const result = `
+    //   الأسم: ${data.username}
+    //   الرقم: ${data.phone}
+    //   العنوان: ${data.city === "Riyad" ? "ألرياض" : "أبها"}, ${data.state}, ${
+    //   data.street
+    // }, ${data.home}, ${data.house}
+    //   --- الطلبات ---
+    //   ${cart.map((item: Cart, idx) => {
+    //     return `
+    //       -- الطلب ${idx + 1} --
+    //       الصنف: ${meals.filter((meal) => meal.id === item.productId)[0].title}
+    //       الكمية: ${item.qyt}
+    //       الحجم: ${meals.filter((meal) => meal.id === item.productId)[0].title}
+    //       السعر: ${
+    //         meals.filter((meal) => meal.id === item.productId)[0].price
+    //       } ريال
+    //     `;
+    //   })}
+    // `;
   }
 
   return (
@@ -296,12 +282,12 @@ const CheckOutForm = ({
           )}
         </Button>
 
-        <div className="flex gap-2 items-center text-red-600 hover:-translate-x-1 duration-300">
+        {/* <div className="flex gap-2 items-center text-red-600 hover:-translate-x-1 duration-300">
           <Info size={28} />
           <p className="text-lg font-semibold">
             سوف يتم ارسال الطلب من رقمك الي رقم المطعم عن طريق الواتس أب.
           </p>
-        </div>
+        </div> */}
       </form>
     </Form>
   );
