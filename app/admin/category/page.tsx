@@ -5,6 +5,8 @@ import React from "react";
 
 const page = async () => {
   const categories = await getAllCategoriesAction();
+  // console.log(categories);
+
   return (
     <div>
       <HeadingAdmin title="الاقسام" />

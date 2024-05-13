@@ -20,6 +20,7 @@ export function MenuTable({ products }: { products: IMenu[] }) {
         <TableRow>
           <TableHead className={headStyle}>الاسم</TableHead>
           <TableHead className={headStyle}>السعر</TableHead>
+          <TableHead className={headStyle}>الحجم</TableHead>
           <TableHead className={headStyle}>القسم</TableHead>
           <TableHead className={headStyle}>السعرات</TableHead>
           <TableHead className={headStyle}>الصورة</TableHead>
@@ -31,6 +32,7 @@ export function MenuTable({ products }: { products: IMenu[] }) {
           <TableRow key={item.id}>
             <TableCell className={bodyStyle}>{item.title}</TableCell>
             <TableCell className={bodyStyle}>{item.price} ريال</TableCell>
+            <TableCell className={bodyStyle}>{item.size}</TableCell>
             <TableCell className={bodyStyle}>
               {item.category ? item.category.title : "لم ينضنم الي قسم"}
             </TableCell>
@@ -56,7 +58,7 @@ export function MenuTable({ products }: { products: IMenu[] }) {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={5} className={headStyle}>
+          <TableCell colSpan={6} className={headStyle}>
             المجموع الاكلات
           </TableCell>
           <TableCell className={bodyStyle}>{products.length}</TableCell>

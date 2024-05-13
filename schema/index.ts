@@ -9,7 +9,7 @@ export const MenuSchema = z.object({
   price: z.number(),
   size: z.string().optional().nullable(),
   kcal: z.number().optional().nullable(),
-  category: z.string().optional(),
+  category: z.string({ message: "يجب أخيار قسم" }),
 });
 
 export type MenuValues = z.infer<typeof MenuSchema>;

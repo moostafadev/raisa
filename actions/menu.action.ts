@@ -99,7 +99,7 @@ export const deleteProductAction = async ({ id }: { id: string }) => {
 
 // Category actions
 export const getAllCategoriesAction = async () => {
-  return prisma.category.findMany({
+  return await prisma.category.findMany({
     include: { products: true },
   });
 };
