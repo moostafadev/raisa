@@ -56,6 +56,7 @@ const OrderSection = ({ order, product }: { order: Cart; product: IMenu }) => {
           onClick={async () => {
             setIsLoading(true);
             if (order?.id) await deleteCartAction({ id: order?.id as string });
+            window.location.replace("/admin/orders");
             setIsLoading(false);
           }}
           disabled={isLoading}

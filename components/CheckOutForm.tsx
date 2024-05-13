@@ -16,7 +16,7 @@ import { z } from "zod";
 import { CheckOutSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import Spinner from "./Spinner";
-import { CircleCheck, Home, Info, MessageCircle } from "lucide-react";
+import { CircleCheck, Home, Info, MessageCircle, Send } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { deleteCartAction, updateCartAction } from "@/actions/menu.action";
+import { updateCartAction } from "@/actions/menu.action";
 import { Cart, City, IMenu } from "@/interfaces";
 import { CartContext } from "@/context/CartContext";
 import Link from "next/link";
@@ -298,11 +298,24 @@ const CheckOutForm = ({
           <div className="flex flex-col gap-2">
             <div className="flex gap-1 py-2 px-3 bg-blue-600 text-white rounded-md">
               <span>
-                <CircleCheck />
+                <Info />
               </span>
-              <p>تم أرسال طلبك بنجاح و سوف يصلك خلال 40 - 50 دقيقة.</p>
+              {/* <p>تم أرسال طلبك بنجاح و سوف يصلك خلال 40 - 50 دقيقة.</p> */}
+              <p>
+                تنبيه لكي يتم تأكيد علي طلبك يجب أرسال رسالة تحتوي علي رقم
+                الهاتف الذي تم تسجليه.
+              </p>
             </div>
-            <Link href={"/"}>
+            <Link href={"https://api.whatsapp.com/send?phone=0556171648"}>
+              <Button
+                className="flex gap-1 items-center text-xl font-bold"
+                variant={"destructive"}
+              >
+                <Send size={22} />
+                <span>هنا</span>
+              </Button>
+            </Link>
+            <Link href={"/"} target="_blank">
               <Button className="flex gap-1 items-center">
                 <Home />
                 <span>الصفحة الرئيسيه</span>

@@ -9,9 +9,10 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const page = async ({ params, searchParams }: PageProps) => {
+const page = async ({ params }: PageProps) => {
   const [order] = await getOneIdCartAction({ id: params.id });
-  const product = await getProductAction({ id: order.productId });
+  const product = await getProductAction({ id: order?.productId });
+
   return (
     <div>
       <HeadingAdmin title={`الطلب بأسم ${order.username}`} />
