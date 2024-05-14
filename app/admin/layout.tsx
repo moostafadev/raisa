@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <>
       <Header />
-      <main className="pt-20 pb-4 px-4 md:pr-[316px]">{children}</main>
+      <main className="pt-20 pb-4 px-4 md:pr-[316px] min-h-[calc(100vh-62px)]">
+        {children}
+      </main>
     </>
   );
 }

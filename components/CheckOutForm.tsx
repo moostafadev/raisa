@@ -16,7 +16,14 @@ import { z } from "zod";
 import { CheckOutSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import Spinner from "./Spinner";
-import { CircleCheck, Home, Info, MessageCircle, Send } from "lucide-react";
+import {
+  CircleCheck,
+  Home,
+  Info,
+  MessageCircle,
+  Send,
+  Truck,
+} from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -296,36 +303,41 @@ const CheckOutForm = ({
 
         {isDone ? (
           <div className="flex flex-col gap-2">
-            <div className="flex gap-1 py-2 px-3 bg-blue-600 text-white rounded-md w-fit">
+            <div className="flex gap-1 py-2 px-3 bg-red-600 dark:bg-red-700 text-white rounded-md w-fit">
               <span>
                 <Info />
               </span>
-              {/* <p>تم أرسال طلبك بنجاح و سوف يصلك خلال 40 - 50 دقيقة.</p> */}
               <p>
-                <span className="text-lg font-bold text-red-300">تنبيه</span>{" "}
-                لكي يتم تأكيد علي طلبك يجب أرسال رسالة تحتوي علي رقم الهاتف الذي
-                تم تسجليه.
+                <span className="text-lg font-bold">تنبيه</span> لكي يتم تأكيد
+                علي طلبك يجب أرسال رسالة تحتوي علي{" "}
+                <span className="text-lg font-bold">رقم الهاتف</span> الذي تم
+                تسجليه.
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-1 py-2 px-3 bg-blue-600 dark:bg-blue-700 text-white rounded-md w-fit">
+              <span>
+                <Truck />
+              </span>
+              <p>تم أرسال طلبك بنجاح و سوف يصلك خلال 40 - 50 دقيقة.</p>
+            </div>
+            <div className="flex gap-2 items-center">
               <Link
                 href={"https://api.whatsapp.com/send?phone=966556171648"}
                 target="_blank"
+                className="flex gap-1 items-center text-lg font-bold bg-red-600 dark:bg-red-700 py-[6px] px-4 rounded-md text-white hover:bg-red-500 dark:hover:bg-red-600 duration-300"
               >
-                <Button
-                  className="flex gap-1 items-center text-xl font-bold"
-                  variant={"destructive"}
+                <Send size={20} />
+                <span>هنا</span>
+              </Link>
+              <Button type="button">
+                <Link
+                  href={"/order"}
+                  className="flex gap-1 items-center text-lg font-bold"
                 >
-                  <Send size={22} />
-                  <span>هنا</span>
-                </Button>
-              </Link>
-              <Link href={"/"} target="_blank">
-                <Button className="flex gap-1 items-center text-lg font-bold">
                   <Home />
-                  <span>الصفحة الرئيسيه</span>
-                </Button>
-              </Link>
+                  <span>صفحة طلبك</span>
+                </Link>
+              </Button>
             </div>
           </div>
         ) : (

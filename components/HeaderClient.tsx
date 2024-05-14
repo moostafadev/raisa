@@ -80,7 +80,7 @@ const HeaderClient = () => {
               </li>
             ) : null}
             <Link
-              href={"tel:0590888215"}
+              href={"tel:966556171648"}
               target="_blank"
               className="py-2 px-4 rounded-md bg-blue-600 text-white font-bold mr-4"
             >
@@ -183,7 +183,7 @@ const HeaderClient = () => {
             </li>
           )}
           <Link
-            href={"tel:0590888215"}
+            href={"tel:966556171648"}
             target="_blank"
             className="py-2 px-4 rounded-md bg-blue-600 text-white font-bold mt-4 block w-fit mx-auto"
           >

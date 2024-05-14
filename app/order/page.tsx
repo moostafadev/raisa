@@ -36,7 +36,7 @@ const page = async () => {
             {order.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col p-4 bg-zinc-200 dark:bg-zinc-950 rounded-md gap-2 sm:text-lg"
+                className="flex flex-col p-4 bg-zinc-200 dark:bg-zinc-900 rounded-md gap-2 sm:text-lg"
               >
                 <div className="flex justify-between flex-col gap-2 sm:flex-row sm:gap-0">
                   <p className="flex gap-2">
