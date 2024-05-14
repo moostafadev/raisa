@@ -33,18 +33,6 @@ const MealItem = ({ item }: { item: IMenu }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    try {
-      if (user) {
-        getOneCartAction({
-          email: user.emailAddresses[0].emailAddress,
-        }).then((res) => setCartUser(res[0]));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, [setCartUser, user, tmp]);
-
   const createCart = async () => {
     if (user || isSignedIn) {
       setIsLoading(true);
