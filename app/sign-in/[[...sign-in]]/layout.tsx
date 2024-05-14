@@ -15,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <main className="flex justify-center mt-12">{children}</main>
+      <main className="flex justify-center mt-12 min-h-[calc(100vh-3rem)]">
+        {children}
+      </main>
     </>
   );
 }
