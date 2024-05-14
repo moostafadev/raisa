@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Providers from "@/providers/Providers";
 import MainFooter from "@/components/MainFooter";
 import { defaultDescription, keyWordsSEO } from "@/shared/keywordsSEO";
+import BtnTop from "@/components/BtnTop";
 
 const inter = Cairo({
   subsets: ["arabic"],
@@ -40,6 +41,7 @@ export default async function RootLayout({
             <main className="h-[100vh]">
               {children}
               <MainFooter />
+              <BtnTop />
             </main>
           </ThemeProvider>
         </body>

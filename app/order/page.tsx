@@ -46,6 +46,15 @@ const page = async () => {
                     </span>
                   </p>
                   <p className="flex gap-2">
+                    <span>القسم:</span>
+                    <span>
+                      {
+                        filteredMeals({ item: item as Cart })[0]?.category
+                          ?.title
+                      }
+                    </span>
+                  </p>
+                  <p className="flex gap-2">
                     <span>السعر الكلي:</span>
                     <span>
                       {(filteredMeals({ item: item as Cart })[0]

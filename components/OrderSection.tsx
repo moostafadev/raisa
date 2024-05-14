@@ -72,6 +72,14 @@ const OrderSection = ({ order, product }: { order: Cart; product: IMenu }) => {
             <span className="text-base font-bold">{order?.qyt}</span>
           </p>
         </div>
+        <div>
+          <p className="flex gap-1">
+            <span>القسم:</span>
+            <span className="text-base font-bold">
+              {product?.category?.title}
+            </span>
+          </p>
+        </div>
         <div className="flex flex-col gap-2 lg:justify-between lg:gap-1 lg:flex-row">
           <p className="flex gap-1">
             <span>سعر الواحدة:</span>

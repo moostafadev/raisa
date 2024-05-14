@@ -67,6 +67,15 @@ const CartItem = ({ item, meal }: { item: Cart; meal: IMenu }) => {
                 <span className="text-lg font-extrabold">{meal?.title}</span>
               </span>
             </p>
+            <p className="flex items-center gap-[2px]">
+              <Utensils size={22} />
+              <span className="flex gap-1">
+                <span className="text-base font-bold">القسم:</span>
+                <span className="text-lg font-extrabold">
+                  {meal?.category?.title}
+                </span>
+              </span>
+            </p>
             <p className="flex gap-[2px] items-center">
               <CircleDollarSign size={22} />
               <span className="flex gap-1">

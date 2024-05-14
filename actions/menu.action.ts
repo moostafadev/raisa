@@ -18,6 +18,9 @@ export const getProductAction = async ({ id }: { id: string }) => {
     where: {
       id,
     },
+    include: {
+      category: true,
+    },
   });
 };
 
