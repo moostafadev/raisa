@@ -1,9 +1,11 @@
 import Header from "@/components/Header";
+import { defaultDescription, keyWordsSEO } from "@/shared/keywordsSEO";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Profile | Coursat Academy",
-  description: "Profile page",
+  title: "Raisa | Profile",
+  description: defaultDescription + " profile page",
+  keywords: keyWordsSEO,
 };
 
 export default function RootLayout({
