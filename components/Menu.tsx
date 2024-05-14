@@ -19,7 +19,7 @@ const Menu = async ({
             <div className="flex flex-col gap-2" key={category?.id}>
               <ClientHeading
                 title={category?.title}
-                className="ml-auto mr-0 mb-5"
+                className="ml-auto mr-0 mb-5 !text-3xl before:bottom-[-10px]"
               />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {category?.products?.map((item) => (

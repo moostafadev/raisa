@@ -3,6 +3,7 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Providers from "@/providers/Providers";
+import MainFooter from "@/components/MainFooter";
 
 const inter = Cairo({
   subsets: ["arabic"],
@@ -34,7 +35,10 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="h-[100vh]">{children}</main>
+            <main className="h-[100vh]">
+              {children}
+              <MainFooter />
+            </main>
           </ThemeProvider>
         </body>
       </html>

@@ -309,7 +309,7 @@ const CheckOutForm = ({
             </div>
             <div className="flex gap-2">
               <Link
-                href={"https://api.whatsapp.com/send?phone=0556171648"}
+                href={"https://api.whatsapp.com/send?phone=966556171648"}
                 target="_blank"
               >
                 <Button

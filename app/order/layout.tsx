@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import HeaderClient from "@/components/HeaderClient";
 import type { Metadata } from "next";
 
@@ -15,7 +16,8 @@ export default function RootLayout({
     <>
       <main>
         <HeaderClient />
-        {children}
+        <div className="min-h-[calc(100vh-64px)]">{children}</div>
+        <Footer />
       </main>
     </>
   );

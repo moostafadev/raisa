@@ -141,7 +141,7 @@ const MealItem = ({ item }: { item: IMenu }) => {
               </span>
             </span>
           </p>
-          <p className="flex gap-[2px] items-center">
+          <p className="flex gap-[2px]">
             <CircleDollarSign size={22} />
             <span className="flex gap-1">
               <span className="text-base font-bold">السعر:</span>

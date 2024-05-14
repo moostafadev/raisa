@@ -15,7 +15,7 @@ export default async function Home() {
       <HeaderClient />
       <Hero />
       <Menu products={products} categories={categories} />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
