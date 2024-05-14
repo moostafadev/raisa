@@ -158,37 +158,41 @@ const HeaderClient = () => {
                 لوحة التحكم
               </Link>
             </li>
-          ) : !user ? (
-            <>
-              <Link href={"/admin"}>
-                <Button
-                  className={`p-[6px] sm:p-2 sm:text-base sm:font-bold`}
-                  variant={"outline"}
-                >
-                  تسجيل دخول
-                </Button>
-              </Link>
-            </>
           ) : (
-            <li>
-              <SignOutButton signOutOptions={{ redirectUrl: "/" }}>
-                <Button
-                  variant={"destructive"}
-                  className="text-lg flex items-center mx-auto"
-                  onClick={() => window.location.replace("/")}
-                >
-                  تسجيل خروج
-                </Button>
-              </SignOutButton>
-            </li>
+            <>
+              <Link
+                href={"tel:966556171648"}
+                target="_blank"
+                className="py-2 px-4 rounded-md bg-blue-600 text-white font-bold mb-4 mt-4 block w-fit mx-auto"
+              >
+                أتصل بنا
+              </Link>
+              {!user ? (
+                <>
+                  <Link href={"/admin"}>
+                    <Button
+                      className={`p-[6px] sm:p-2 sm:text-base sm:font-bold`}
+                      variant={"outline"}
+                    >
+                      تسجيل دخول
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <li>
+                  <SignOutButton signOutOptions={{ redirectUrl: "/" }}>
+                    <Button
+                      variant={"destructive"}
+                      className="text-lg flex items-center mx-auto"
+                      onClick={() => window.location.replace("/")}
+                    >
+                      تسجيل خروج
+                    </Button>
+                  </SignOutButton>
+                </li>
+              )}
+            </>
           )}
-          <Link
-            href={"tel:966556171648"}
-            target="_blank"
-            className="py-2 px-4 rounded-md bg-blue-600 text-white font-bold mt-4 block w-fit mx-auto"
-          >
-            أتصل بنا
-          </Link>
         </ul>
       </div>
     </header>
