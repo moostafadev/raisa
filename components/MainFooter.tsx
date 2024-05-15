@@ -16,11 +16,11 @@ const MainFooter = () => {
         <div className="text-center tracking-wider text-sm sm:text-base">
           جميع الحقوق محفوظة لدي{" "}
           <Link
-            href={"https://mostafasasa010.github.io/Mostafa_Website/"}
+            href={"https://mostafasasa010.github.io/Mostafa_Website"}
             target="_blank"
             className="sm:text-lg font-bold duration-300 hover:text-red-600"
           >
-            مصطفي أحمد.
+            Mostafa Ahmed
           </Link>
         </div>
       </div>
