@@ -15,13 +15,9 @@ const page = async () => {
     condition: true,
     email: user?.emailAddresses[0].emailAddress as string,
   });
-
-  // console.log(order);
   const meals = await Promise.all(
     order.map(async (item) => getProductAction({ id: item.productId }))
   );
-
-  console.log(meals);
 
   const filteredMeals = ({ item }: { item: Cart }) => {
     return meals.filter((meal) => meal?.id === item?.productId);
@@ -31,7 +27,7 @@ const page = async () => {
     <div className="container py-10">
       <ClientHeading title="طلباتك" />
       <div className="flex flex-col gap-4">
-        {order.length ? (
+        {order.length && user ? (
           <>
             {order.map((item) => (
               <div
