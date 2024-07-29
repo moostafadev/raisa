@@ -16,14 +16,7 @@ import { z } from "zod";
 import { CheckOutSchema } from "@/schema";
 import { useForm } from "react-hook-form";
 import Spinner from "./Spinner";
-import {
-  CircleCheck,
-  Home,
-  Info,
-  MessageCircle,
-  Send,
-  Truck,
-} from "lucide-react";
+import { Home, Info, MessageCircle, Send, Truck } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -35,6 +28,7 @@ import { updateCartAction } from "@/actions/menu.action";
 import { Cart, City, IMenu } from "@/interfaces";
 import { CartContext } from "@/context/CartContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CheckOutSchema {
   username: string;
@@ -50,14 +44,17 @@ const CheckOutForm = ({
   id,
   cart,
   meals,
+  finalPrice,
 }: {
   id: string[];
   cart: Cart[];
   meals: IMenu[];
+  finalPrice: number;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const { setCart } = useContext(CartContext);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof CheckOutSchema>>({
     resolver: zodResolver(CheckOutSchema),
@@ -100,33 +97,39 @@ const CheckOutForm = ({
           });
         })
       );
+      setIsDone(true);
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
       setCart([]);
-      setIsDone(true);
     }
 
-    // const result = `
-    //   الأسم: ${data.username}
-    //   الرقم: ${data.phone}
-    //   العنوان: ${data.city === "Riyad" ? "ألرياض" : "أبها"}, ${data.state}, ${
-    //   data.street
-    // }, ${data.home}, ${data.house}
-    //   --- الطلبات ---
-    //   ${cart.map((item: Cart, idx) => {
-    //     return `
-    //       -- الطلب ${idx + 1} --
-    //       الصنف: ${meals.filter((meal) => meal.id === item.productId)[0].title}
-    //       الكمية: ${item.qyt}
-    //       الحجم: ${meals.filter((meal) => meal.id === item.productId)[0].title}
-    //       السعر: ${
-    //         meals.filter((meal) => meal.id === item.productId)[0].price
-    //       } ريال
-    //     `;
-    //   })}
-    // `;
+    const result = `
+الأسم: ${data.username}
+الرقم: ${data.phone}
+العنوان: ${data.city === "Riyad" ? "ألرياض" : "أبها"}, ${data.state}, ${
+      data.street
+    }, ${data.home}, ${data.house}
+--- الطلبات ---
+${cart
+  .map((item: Cart, idx) => {
+    const meal = meals.find((meal) => meal.id === item.productId);
+    return `
+-- الطلب ${idx + 1} --
+الصنف: ${meal?.title}
+الكمية: ${item.qyt}
+الحجم: ${meal?.size} 
+السعر: ${meal?.price} ريال
+`.trim();
+  })
+  .join("\n")}
+---
+السعر الكلي: ${finalPrice}`;
+
+    const encodedResult = encodeURIComponent(result);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=966556171648&text=${encodedResult}`;
+    router.replace(whatsappUrl);
   }
 
   return (
@@ -356,13 +359,6 @@ const CheckOutForm = ({
             )}
           </Button>
         )}
-
-        {/* <div className="flex gap-2 items-center text-red-600 hover:-translate-x-1 duration-300">
-          <Info size={28} />
-          <p className="text-lg font-semibold">
-            سوف يتم ارسال الطلب من رقمك الي رقم المطعم عن طريق الواتس أب.
-          </p>
-        </div> */}
       </form>
     </Form>
   );

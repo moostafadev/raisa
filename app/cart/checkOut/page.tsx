@@ -12,6 +12,7 @@ const page = async () => {
   const cart = await getOneCartAction({
     email: user?.emailAddresses[0].emailAddress as string,
   });
+  const result = cart.filter((item) => item.condition === false);
 
   return (
     <div className="container py-10">
@@ -20,7 +21,7 @@ const page = async () => {
         <Link href={"/cart"} className="w-fit mr-auto flex">
           <Button className="text-lg font-bold">رجوع</Button>
         </Link>
-        <CheckOutSection cart={cart as Cart[]} />
+        <CheckOutSection cart={result as Cart[]} />
       </div>
     </div>
   );

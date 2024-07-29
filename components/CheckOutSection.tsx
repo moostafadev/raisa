@@ -114,18 +114,26 @@ const CheckOutSection = ({ cart }: { cart: Cart[] }) => {
               </span>
             </div>
           </>
-        ) : null}
-        <div className="rounded-md py-2 px-3 sm:py-3 sm:px-4 text-white text-base sm:text-lg flex gap-2 items-center w-fit">
-          <span>الثمن الكلي:</span>
-          <span className="text-lg sm:text-xl font-bold">
-            {sumPrices().sum} ريال
-          </span>
-        </div>
+        ) : (
+          <>
+            <div className="rounded-md py-2 px-3 sm:py-3 sm:px-4 text-white text-base sm:text-lg flex gap-2 items-center w-fit border-b-2 border-blue-900">
+              <span>سعر التوصيل:</span>
+              <span className="text-lg sm:text-xl font-bold">0 ريال</span>
+            </div>
+            <div className="rounded-md py-2 px-3 sm:py-3 sm:px-4 text-white text-base sm:text-lg flex gap-2 items-center w-fit">
+              <span>الثمن الكلي:</span>
+              <span className="text-lg sm:text-xl font-bold">
+                {sumPrices().sum} ريال
+              </span>
+            </div>
+          </>
+        )}
       </div>
       <CheckOutForm
         id={idiesCart() as string[]}
         cart={cart as Cart[]}
         meals={filteredMealsTo() as IMenu[]}
+        finalPrice={sumPrices().sum}
       />
     </div>
   );

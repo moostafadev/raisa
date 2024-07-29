@@ -6,7 +6,6 @@ import ClientHeading from "@/components/ClientHeading";
 import { Cart } from "@/interfaces";
 import EmptyCartSvg from "@/public/svg/empty-cart";
 import { currentUser } from "@clerk/nextjs/server";
-import { CircleDollarSign, CookingPot, Utensils } from "lucide-react";
 import React from "react";
 
 const page = async () => {

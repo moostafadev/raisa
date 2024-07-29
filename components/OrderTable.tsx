@@ -26,10 +26,10 @@ export function OrderTable({
     return products.filter((meal) => meal?.id === item?.productId);
   };
 
-  const timeSecond = 60;
-  setTimeout(() => {
-    window.location.reload();
-  }, timeSecond * 1000);
+  // const timeSecond = 60;
+  // setTimeout(() => {
+  //   window.location.reload();
+  // }, timeSecond * 1000);
 
   return (
     <Table>

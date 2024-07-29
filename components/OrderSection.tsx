@@ -6,9 +6,11 @@ import { Cart, IMenu } from "@/interfaces";
 import { deleteCartAction } from "@/actions/menu.action";
 import { CircleCheck } from "lucide-react";
 import Spinner from "./Spinner";
+import { useRouter } from "next/navigation";
 
 const OrderSection = ({ order, product }: { order: Cart; product: IMenu }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
     <div className="flex flex-col gap-4 p-4 bg-zinc-100 dark:bg-zinc-900 rounded-md max-w-[800px]">
@@ -95,9 +97,10 @@ const OrderSection = ({ order, product }: { order: Cart; product: IMenu }) => {
             className="h-[30px] px-2 bg-green-600 text-white hover:bg-green-500 w-fit"
             onClick={async () => {
               setIsLoading(true);
-              if (order?.id)
+              if (order?.id) {
                 await deleteCartAction({ id: order?.id as string });
-              window.location.replace("/admin/orders");
+                router.back();
+              }
               setIsLoading(false);
             }}
             disabled={isLoading}
